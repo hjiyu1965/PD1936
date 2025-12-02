@@ -1,0 +1,65 @@
+on init
+    # USB configuration
+    setprop sys.usb.controller a600000.dwc3
+    setprop sys.usb.configfs 1
+    
+    # Create USB directories
+    mkdir /config/usb_gadget/g1 0770 shell shell
+    mkdir /config/usb_gadget/g1/configs/b.1 0770 shell shell
+    mkdir /config/usb_gadget/g1/functions 0770 shell shell
+    
+    # Set USB vendor and product IDs
+    write /config/usb_gadget/g1/idVendor 0x18d1
+    write /config/usb_gadget/g1/idProduct 0xd001
+    write /config/usb_gadget/g1/bcdDevice 0x0100
+    write /config/usb_gadget/g1/bcdUSB 0x0310
+    
+    # Set device strings
+    mkdir /config/usb_gadget/g1/strings/0x409 0770 shell shell
+    write /config/usb_gadget/g1/strings/0x409/manufacturer "vivo"
+    write /config/usb_gadget/g1/strings/0x409/product "V1936A"
+    write /config/usb_gadget/g1/strings/0x409/serialnumber "EA5DD959"
+    
+    # Set configuration strings
+    mkdir /config/usb_gadget/g1/configs/b.1/strings/0x409 0770 shell shell
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb_mtp"
+    write /config/usb_gadget/g1/configs/b.1/MaxPower 500
+    
+    # Create MTP function
+    mkdir /config/usb_gadget/g1/functions/mtp.gs0 0770 shell shell
+    
+    # Create ADB function
+    mkdir /config/usb_gadget/g1/functions/adb.adb 0770 shell shell
+    
+    # Link functions to configuration
+    symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/adb.adb /config/usb_gadget/g1/configs/b.1/f2
+    
+    # Enable MTP only
+    write /config/usb_gadget/g1/UDC a600000.dwc3
+    write /sys/class/android_usb/android0/enable 1
+
+on property:sys.usb.config=mtp
+    write /config/usb_gadget/g1/UDC ""
+    unlink /config/usb_gadget/g1/configs/b.1/f2
+    write /config/usb_gadget/g1/UDC a600000.dwc3
+
+on property:sys.usb.config=mtp,adb
+    write /config/usb_gadget/g1/UDC ""
+    symlink /config/usb_gadget/g1/functions/adb.adb /config/usb_gadget/g1/configs/b.1/f2
+    write /config/usb_gadget/g1/UDC a600000.dwc3
+
+on property:sys.usb.config=adb
+    write /config/usb_gadget/g1/UDC ""
+    unlink /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/adb.adb /config/usb_gadget/g1/configs/b.1/f2
+    write /config/usb_gadget/g1/UDC a600000.dwc3
+
+on property:sys.usb.config=mass_storage
+    write /config/usb_gadget/g1/UDC ""
+    unlink /config/usb_gadget/g1/configs/b.1/f2
+    # Mass storage function would be created here if needed
+    write /config/usb_gadget/g1/UDC a600000.dwc3
+
+on property:sys.usb.config=none
+    write /config/usb_gadget/g1/UDC ""
