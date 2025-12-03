@@ -30,6 +30,12 @@ export BOARD_USES_METADATA_PARTITION="true"
 export BOARD_BUILD_SYSTEM_ROOT_IMAGE="true"
 export BOARD_AVB_ENABLE="true"
 
+# AVB 配置
+export BOARD_AVB_RECOVERY_KEY_PATH="external/avb/test/data/testkey_rsa2048.pem"
+export BOARD_AVB_RECOVERY_ALGORITHM="SHA256_RSA2048"
+export BOARD_AVB_RECOVERY_ROLLBACK_INDEX="1"
+export BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION="1"
+
 # 屏幕和触摸配置（基于 BoardConfig.mk）
 export TW_THEME="portrait_hdpi"
 export TW_Y_OFFSET="80"
