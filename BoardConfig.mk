@@ -97,7 +97,6 @@ TARGET_USERIMAGES_USE_F2FS := true
 TW_THEME := portrait_hdpi
 TW_INCLUDE_REBOOT_BOOTLOADER := true
 TW_INCLUDE_REBOOT_RECOVERY := true
-TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_CUSTOM_CPU_TEMP_PATH := /sys/class/thermal/thermal_zone9/temp
 TW_CUSTOM_BATTERY_PATH := /sys/class/power_supply/battery
 TW_CUSTOM_CPUINFO_PATH := /proc/cpuinfo
@@ -114,6 +113,13 @@ TW_INCLUDE_FB2PNG := true
 TW_TOUCHSCREEN_PEN := true
 TW_SUPPORT_INPUT_AIDL_EVDEV := true
 TW_DEVICE_VERSION := 0
+
+# 触摸屏修复配置
+TW_INPUT_BLACKLIST := "hbtp_vm"
+TW_IGNORE_MAJOR_AXIS_0 := true
+TW_IGNORE_MT_POSITION_0 := true
+TW_DISABLE_TTF := true
+
 TW_OVERRIDE_SYSTEM_PROPS := \
     "ro.build.product;ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental;ro.product.device=ro.product.system.device;ro.product.model=ro.product.system.model;ro.product.name=ro.product.system.name"
 TWRP_INCLUDE_LOGCAT := true
