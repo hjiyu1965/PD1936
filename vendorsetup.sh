@@ -1,4 +1,3 @@
-
 # TWRP 11 for vivo PD1936
 # Copyright (C) 2025 The Android Open Source Project
 # Copyright (C) 2025 SebaUbuntu's TWRP device tree generator
@@ -11,7 +10,7 @@ export DEVICE_PATH="device/vivo/PD1936"
 
 # TWRP 构建配置
 export ALLOW_MISSING_DEPENDENCIES=true
-export LC_ALL="C"
+# 移除 LC_ALL="C" 设置以允许本地化支持
 export RECOVERY_VARIANT="twrp"
 export TARGET_RECOVERY_IS_MULTI_BOOT=false
 
@@ -19,6 +18,10 @@ export TARGET_RECOVERY_IS_MULTI_BOOT=false
 export TW_DEVICE_VERSION="1"
 export TW_MAINTAINER="YourName"
 export TW_DEFAULT_LANGUAGE="zh_CN"
+
+# 添加中文支持相关配置
+export TW_EXTRA_LANGUAGES=true
+export TW_LOAD_ZH_CN_LANGUAGE_PATCH=true
 
 # Android 11 特定配置
 export PLATFORM_SECURITY_PATCH="2099-12-31"
@@ -66,6 +69,9 @@ export TW_NO_SCREEN_BLANK="true"
 export TW_NO_SCREEN_TIMEOUT="true"
 export TW_USE_TOOLBOX="true"
 export TW_INCLUDE_REPACKTOOLS="true"
+
+# 解决data分区格式化问题
+export TW_DATA_PARTION_DISABLE_ENCRYPTION_SECTORS_PATCH="true"
 
 # 添加构建目标到 lunch 菜单
 add_lunch_combo twrp_${DEVICE}-eng
