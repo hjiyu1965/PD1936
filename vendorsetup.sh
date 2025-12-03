@@ -49,11 +49,6 @@ export TW_DEFAULT_BRIGHTNESS="420"
 export TW_TOUCHSCREEN_PEN="true"
 export TW_SUPPORT_INPUT_AIDL_EVDEV="true"
 
-# 触摸屏修复相关配置
-export TW_IGNORE_MAJOR_AXIS_0="true"
-export TW_IGNORE_MT_POSITION_0="true"
-export TW_DISABLE_TTF="true"
-
 # 电池和温度监控
 export TW_CUSTOM_CPU_TEMP_PATH="/sys/class/thermal/thermal_zone56/temp"
 export TW_CUSTOM_BATTERY_PATH="/sys/class/power_supply/battery"
