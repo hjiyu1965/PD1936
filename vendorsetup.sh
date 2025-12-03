@@ -49,6 +49,7 @@ export TW_TOUCHSCREEN_PEN="true"
 export TW_SUPPORT_INPUT_AIDL_EVDEV="true"
 
 # 电池和温度监控
+# 电池和温度监控
 export TW_CUSTOM_CPU_TEMP_PATH="/sys/class/thermal/thermal_zone56/temp"
 export TW_CUSTOM_BATTERY_PATH="/sys/class/power_supply/battery"
 
@@ -71,6 +72,10 @@ export TW_INCLUDE_REPACKTOOLS="true"
 
 # 解决data分区格式化问题
 export TW_DATA_PARTION_DISABLE_ENCRYPTION_SECTORS_PATCH="true"
+
+# 调试选项
+export TWRP_INCLUDE_LOGCAT="true"
+export TARGET_USES_LOGD="true"
 
 # 添加构建目标到 lunch 菜单
 add_lunch_combo twrp_${DEVICE}-eng

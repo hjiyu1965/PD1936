@@ -32,8 +32,15 @@ OVERRIDE_TARGET_FLATTEN_APEX := true
 TARGET_BOOTLOADER_BOARD_NAME := msmnile
 TARGET_NO_BOOTLOADER := true
 
+# Platform
+TARGET_BOARD_PLATFORM := msmnile
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno640
+
 # Display
 TARGET_SCREEN_DENSITY := 480
+TW_THEME := portrait_hdpi
+TW_Y_OFFSET := 80
+TW_H_OFFSET := -80
 
 # Kernel
 BOARD_BOOTIMG_HEADER_VERSION := 2
@@ -73,18 +80,7 @@ BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
 BOARD_USES_METADATA_PARTITION := true
-
-# Platform
-TARGET_BOARD_PLATFORM := msmnile
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno640
-
-# AVB
-BOARD_AVB_ENABLE := true
-BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
-BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA2048
-BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
-BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
-BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 2
+BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
@@ -93,49 +89,94 @@ TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
+# Verified Boot
+BOARD_AVB_ENABLE := true
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
+BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
+BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
+BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
+
 # TWRP Configuration
-TW_THEME := portrait_hdpi
+TW_DEVICE_VERSION := 0
 TW_INCLUDE_REBOOT_BOOTLOADER := true
 TW_INCLUDE_REBOOT_RECOVERY := true
+TW_EXCLUDE_TWRPAPP := true
+
+# Hardware Info
 TW_CUSTOM_CPU_TEMP_PATH := /sys/class/thermal/thermal_zone9/temp
 TW_CUSTOM_BATTERY_PATH := /sys/class/power_supply/battery
 TW_CUSTOM_CPUINFO_PATH := /proc/cpuinfo
+
+# Brightness Control
 TW_BRIGHTNESS_PATH := /sys/class/backlight/panel0-backlight/brightness
 TW_MAX_BRIGHTNESS := 1023
 TW_DEFAULT_BRIGHTNESS := 400
 TW_NO_SCREEN_TIMEOUT := true
+
+# Encryption
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_FBE := true
-TW_INCLUDE_NTFS_3G := true
-TW_INCLUDE_LIBRESETPROP := true
-TW_INCLUDE_RESETPROP := true
-TW_INCLUDE_FB2PNG := true
-TW_TOUCHSCREEN_PEN := true
-TW_SUPPORT_INPUT_AIDL_EVDEV := true
-TW_DEVICE_VERSION := 0
+TW_DATA_PARTION_DISABLE_ENCRYPTION_SECTORS_PATCH := true
+
+# Languages
+TW_EXTRA_LANGUAGES := true
+TW_DEFAULT_LANGUAGE := zh_CN
+
+# System Properties
 TW_OVERRIDE_SYSTEM_PROPS := \
     "ro.build.product;ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental;ro.product.device=ro.product.system.device;ro.product.model=ro.product.system.model;ro.product.name=ro.product.system.name"
+
+# Debugging
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
-TW_EXCLUDE_TWRPAPP := true
-TW_INCLUDE_PYTHON := true
 
-# 触摸屏配置优化
+# ADB Connection
+TW_USE_NEW_MINADBD := true
+
+# File Systems Support
+TW_INCLUDE_NTFS_3G := true
+TW_INCLUDE_FUSE_EXFAT := true
+TW_INCLUDE_FUSE_NTFS := true
+
+# Reset Props
+TW_INCLUDE_LIBRESETPROP := true
+TW_INCLUDE_RESETPROP := true
+
+# Screenshot
+TW_INCLUDE_FB2PNG := true
+
+# Touch Screen
 TW_TOUCHSCREEN_PEN := true
 TW_SUPPORT_INPUT_AIDL_EVDEV := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_INPUT_ADDITIONAL_BLOCKLIST := "fts_i2c fts_i2c_second"
+TW_INPUT_ADDITIONAL_BLOCKLIST := ""
+TW_IGNORE_MAJOR_AXIS_0 := true
+TW_IGNORE_MT_POSITION_0 := true
+TW_DISABLE_TTF := true
 
-# 添加中文语言支持
-TW_EXTRA_LANGUAGES := true
-TW_DEFAULT_LANGUAGE := "zh_CN"
+# Vivo PD1936 specific touchscreen configuration
+TW_TOUCHSCREEN_CALIBRATION := true
+TW_TOUCHSCREEN_SWAP_XY := false
+TW_TOUCHSCREEN_FLIP_X := false
+TW_TOUCHSCREEN_FLIP_Y := false
+TW_TOUCHSCREEN_MULTITOUCH := true
+TW_TOUCHSCREEN_MAX_POINTS := 10
+TW_TOUCHSCREEN_TIMEOUT := 3000
 
-# 解决data分区相关问题
-TW_USE_NEW_MINADBD := true
-TW_INCLUDE_FUSE_EXFAT := true
-TW_INCLUDE_FUSE_NTFS := true
+# Touchscreen debugging and troubleshooting
+TW_INCLUDE_TOUCHSCREEN_DEBUG := true
+TW_TOUCHSCREEN_DEBUG := true
+TW_ALWAYS_RMRF := false
+TW_NO_CPU_TEMP := false
+
+# Compatibility
+TW_SKIP_COMPATIBILITY_CHECK := true
 TW_NO_BIND_SYSTEM := true
-BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
+
+
+# Python Support
+TW_INCLUDE_PYTHON := true
 
 # TWRP Modules
 TARGET_RECOVERY_DEVICE_MODULES += \
@@ -153,9 +194,4 @@ RECOVERY_LIBRARY_SOURCE_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libcrypto.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libssl.so
 
-# Additional sepolicy settings
-BOARD_PLAT_PRIVATE_SEPOLICY_DIR += \
-    $(DEVICE_PATH)/sepolicy/private
 
-BOARD_SEPOLICY_DIRS += \
-    $(DEVICE_PATH)/sepolicy/vendor

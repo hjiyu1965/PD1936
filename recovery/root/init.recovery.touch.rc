@@ -153,11 +153,20 @@ on boot
 	chown system /sys/class/vts/vivo_ts_second/status/proximity
 	chown system /sys/class/vts/vivo_ts_second/status/rotation
 	chown system /sys/class/vts/vivo_ts_second/status/virt_prox_enable
+	
+	# Start touch update service
 	start touchupdate
 
+# Enhanced touch update service with better logging
 service touchupdate /system/bin/vts_app_recovery --update
-	class core
-	user system
-	disabled
-	seclabel u:r:vts_app:s0
-	oneshot
+    class main
+    user system
+    group system
+    seclabel u:r:vts_app:s0
+    oneshot
+    
+# Add a service to debug touch issues
+service touchdebug /system/bin/sh -c "echo 'Touch debug started' >> /tmp/recovery.log; getevent -lp >> /tmp/recovery.log 2>&1"
+    class main
+    user root
+    group root
