@@ -97,7 +97,6 @@ TARGET_USERIMAGES_USE_F2FS := true
 TW_THEME := portrait_hdpi
 TW_INCLUDE_REBOOT_BOOTLOADER := true
 TW_INCLUDE_REBOOT_RECOVERY := true
-TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_CUSTOM_CPU_TEMP_PATH := /sys/class/thermal/thermal_zone9/temp
 TW_CUSTOM_BATTERY_PATH := /sys/class/power_supply/battery
 TW_CUSTOM_CPUINFO_PATH := /proc/cpuinfo
@@ -120,6 +119,12 @@ TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
 TW_EXCLUDE_TWRPAPP := true
 TW_INCLUDE_PYTHON := true
+
+# 触摸屏配置优化
+TW_TOUCHSCREEN_PEN := true
+TW_SUPPORT_INPUT_AIDL_EVDEV := true
+TW_INPUT_BLACKLIST := "hbtp_vm"
+TW_INPUT_ADDITIONAL_BLOCKLIST := "fts_i2c fts_i2c_second"
 
 # 添加中文语言支持
 TW_EXTRA_LANGUAGES := true

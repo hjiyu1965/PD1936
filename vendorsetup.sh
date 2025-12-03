@@ -21,7 +21,6 @@ export TW_DEFAULT_LANGUAGE="zh_CN"
 
 # 添加中文支持相关配置
 export TW_EXTRA_LANGUAGES=true
-export TW_LOAD_ZH_CN_LANGUAGE_PATCH=true
 
 # Android 11 特定配置
 export PLATFORM_SECURITY_PATCH="2099-12-31"
