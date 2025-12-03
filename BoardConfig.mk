@@ -79,72 +79,59 @@ TARGET_BOARD_PLATFORM := msmnile
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno640
 
 # Recovery
-# 通常 TWRP 会自动查找，但可以显式指定：
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
-# 或使用独立的 TWRP fstab：
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/twrp.fstab
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 BOARD_INCLUDE_RECOVERY_DTBO := true
 TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
-# Security patch level
-VENDOR_SECURITY_PATCH := 2022-04-01
-
-# Verified Boot
-BOARD_AVB_ENABLE := true
-BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
-BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
-BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
-BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
-BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
-
-# Hack: prevent anti rollback
-PLATFORM_SECURITY_PATCH := 2099-12-31
-VENDOR_SECURITY_PATCH := 2099-12-31
-PLATFORM_VERSION := 16.1.0
-PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
-
 # TWRP Configuration
 TW_THEME := portrait_hdpi
-TW_EXTRA_LANGUAGES := true
-TW_SCREEN_BLANK_ON_BOOT := true
+TW_INCLUDE_REBOOT_BOOTLOADER := true
+TW_INCLUDE_REBOOT_RECOVERY := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_USE_TOOLBOX := true
-TW_INCLUDE_REPACKTOOLS := true
-TW_DEVICE_VERSION := 1
-TW_Y_OFFSET := 80
-TW_H_OFFSET := -80
-TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone56/temp"
-TW_CUSTOM_BATTERY_PATH := "/sys/class/power_supply/battery"
-TW_NO_USB_STORAGE := false
-TW_INCLUDE_NTFS_3G := true
-TW_EXCLUDE_TWRPAPP := true
+TW_CUSTOM_CPU_TEMP_PATH := /sys/class/thermal/thermal_zone9/temp
+TW_CUSTOM_BATTERY_PATH := /sys/class/power_supply/battery
+TW_CUSTOM_CPUINFO_PATH := /proc/cpuinfo
+TW_BRIGHTNESS_PATH := /sys/class/backlight/panel0-backlight/brightness
+TW_MAX_BRIGHTNESS := 1023
+TW_DEFAULT_BRIGHTNESS := 400
+TW_NO_SCREEN_TIMEOUT := true
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_FBE := true
-TW_NO_SCREEN_BLANK := true
-TW_NO_SCREEN_TIMEOUT := true
-TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
-TW_MAX_BRIGHTNESS := 1023
-TW_DEFAULT_BRIGHTNESS := 420
-TW_OVERRIDE_SYSTEM_PROPS := \
-    "ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental"
+TW_INCLUDE_NTFS_3G := true
+TW_INCLUDE_LIBRESETPROP := true
+TW_INCLUDE_RESETPROP := true
+TW_INCLUDE_FB2PNG := true
 TW_TOUCHSCREEN_PEN := true
 TW_SUPPORT_INPUT_AIDL_EVDEV := true
-TW_NO_LEGACY_PROPS := true
-RECOVERY_LIBRARY_SOURCE_FILES += \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
-    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/libdisplayconfig.qti.so \
-    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@1.0.so \
-    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@2.0.so \
-    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/libqdMetaData.system.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libdisplayconfig.qti.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/vendor.display.config@1.0.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/vendor.display.config@2.0.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libqdMetaData.system.so
+TW_DEVICE_VERSION := 0
+TW_OVERRIDE_SYSTEM_PROPS := \
+    "ro.build.product;ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental;ro.product.device=ro.product.system.device;ro.product.model=ro.product.system.model;ro.product.name=ro.product.system.name"
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
+TW_EXCLUDE_TWRPAPP := true
+TW_INCLUDE_PYTHON := true
+
+# TWRP Modules
 TARGET_RECOVERY_DEVICE_MODULES += \
     libandroidicu \
-    libcap \
     libion \
     libxml2 \
+    libprotobuf-cpp-full \
     tzdata_twrp
+
+RECOVERY_LIBRARY_SOURCE_FILES += \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libandroidicu.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libprotobuf-cpp-full.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libcrypto.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libssl.so
+
+# Additional sepolicy settings
+BOARD_PLAT_PRIVATE_SEPOLICY_DIR += \
+    $(DEVICE_PATH)/sepolicy/private
+
+BOARD_SEPOLICY_DIRS += \
+    $(DEVICE_PATH)/sepolicy/vendor
