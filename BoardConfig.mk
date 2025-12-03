@@ -131,6 +131,7 @@ TW_OVERRIDE_SYSTEM_PROPS := \
     "ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental"
 TW_TOUCHSCREEN_PEN := true
 TW_SUPPORT_INPUT_AIDL_EVDEV := true
+TW_NO_LEGACY_PROPS := true
 RECOVERY_LIBRARY_SOURCE_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
     $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/libdisplayconfig.qti.so \
