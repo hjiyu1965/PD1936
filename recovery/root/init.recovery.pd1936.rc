@@ -1,0 +1,89 @@
+# OrangeFox Recovery init script for PD1936
+
+on early-init
+    # 设置环境变量
+    export PATH /sbin:/system/sbin:/system/bin:/system/xbin:/vendor/bin
+    export LD_LIBRARY_PATH /vendor/lib:/system/lib
+    export ANDROID_DATA /data
+    export ANDROID_ROOT /system
+    export ANDROID_STORAGE /storage
+    
+    # 创建必要的目录
+    mkdir /vendor/firmware 0770 root system
+    mkdir /vendor/lib/modules 0770 root system
+    mkdir /tmp 0770 root system
+    mkdir /persist 0770 root system
+    mkdir /mnt/vendor/persist 0770 root system
+
+on init
+    # 设置设备属性
+    setprop ro.twrp.boot 1
+    setprop ro.twrp.version $(FOX_VERSION)
+    setprop ro.orangefox.version $(FOX_VERSION)
+    
+    # 挂载vendor分区
+    mount /vendor
+    
+    # 复制固件文件到vendor分区
+    symlink /system/vendor/firmware /vendor/firmware
+
+on boot
+    # 执行触摸屏固件选择器
+    exec -- /system/bin/sh /vendor/bin/tp_firmware_selector.sh
+    
+    # 等待触摸屏初始化完成
+    wait_for_prop touchscreen.ready 1
+    
+    # 设置触摸屏属性
+    setprop touchscreen.ready 1
+    setprop touchscreen.firmware.loaded 1
+    
+    # 启动其他服务
+    start console
+    start adbd
+
+service console /system/bin/sh
+    class core
+    console
+    disabled
+    user root
+    group root log
+    seclabel u:r:shell:s0
+
+service adbd /system/bin/sh /sbin/adbd.sh
+    class core
+    socket adbd stream 660 system system
+    disabled
+    seclabel u:r:adbd:s0
+
+# 触摸屏服务
+service tp_firmware_selector /vendor/bin/tp_firmware_selector.sh
+    class main
+    user root
+    group root system
+    oneshot
+    seclabel u:r:recovery:s0
+
+# 文件系统挂载
+on fs
+    # 挂载system分区
+    mount ext4 /dev/block/bootdevice/by-name/system /system ro
+    
+    # 挂载vendor分区
+    mount ext4 /dev/block/bootdevice/by-name/vendor /vendor ro
+    
+    # 挂载data分区
+    mount ext4 /dev/block/bootdevice/by-name/userdata /data rw
+    
+    # 挂载cache分区
+    mount ext4 /dev/block/bootdevice/by-name/cache /cache rw
+
+# 触发事件
+on property:sys.boot_completed=1
+    start tp_firmware_selector
+
+# 硬件按键映射（如果有）
+on property:dev.bootcomplete=1
+    # 设置音量键
+    write /sys/class/input/input0/enable 1
+    write /sys/class/input/input1/enable 1
