@@ -10,8 +10,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit some common OrangeFox configurations.
-$(call inherit-product, vendor/fox/config/common.mk)
-
+$(call inherit-product, vendor/twrp/config/common.mk)
 # Inherit from PD1936 device
 $(call inherit-product, device/vivo/PD1936/device.mk)
 
