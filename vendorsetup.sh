@@ -41,7 +41,7 @@ export OF_USE_LZ4_COMPRESSION=0
 # 维护者信息
 export OF_MAINTAINER="YourName"
 export FOX_BUILD_TYPE="Beta"
-export FOX_VERSION="R11.1"
+export FOX_VERSION="R12.1"
 export FOX_MAINTAINER_PATCH_VERSION=1
 
 # ==================== 显示与屏幕配置 ====================
