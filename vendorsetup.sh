@@ -31,7 +31,7 @@ export OF_USE_LZ4_COMPRESSION=0
 
 # 设备配置
 export OF_MAINTAINER="YourName"
-export FOX_MAINTAINER_PATCH_VERSION=1  # 注意：使用整数值
+export FOX_MAINTAINER_PATCH_VERSION=1  # 注意：使用整数值，不能加引号
 
 # 屏幕配置（PD1936 分辨率 1080x2400，20:9 比例）
 export OF_SCREEN_H=2400
@@ -42,8 +42,17 @@ export OF_STATUS_INDENT_RIGHT=48
 export OF_HIDE_NOTCH=1
 export OF_CLOCK_POS=0
 
-# TWRP 主题
+# TWRP 主题和语言
 export TW_THEME=portrait_hdpi
+export TW_DEFAULT_LANGUAGE=zh_CN
+export TW_EXTRA_LANGUAGES=true
+
+# 亮度配置
+export TW_MAX_BRIGHTNESS=255
+export TW_DEFAULT_BRIGHTNESS=160
+
+# 时间配置
+export TW_DEFAULT_TIME_ZONE="Asia/Shanghai"
 
 # 安全配置
 export OF_ADVANCED_SECURITY=0
@@ -94,6 +103,17 @@ export OF_USE_DMCTL=0
 # 构建配置
 export FOX_INSTALLER_DEBUG_MODE=0
 export FOX_DELETE_AROMAFM=0
+export FOX_REMOVE_AAPT=0
+export FOX_DYNAMIC_SAMSUNG_FIX=0
+export OF_MANUAL_ROOT_VENDOR_ERROR_FIX=0
+
+# 设备特定配置
+export FOX_DEVICE_MODEL="V1936A"
+export FOX_DEVICE_BRAND="vivo"
+export FOX_DEVICE_NAME="PD1936"
+
+# 注意：不要在 vendorsetup.sh 中使用 lunch_combo
+# OrangeFox 构建系统会自动处理设备选择export FOX_DELETE_AROMAFM=0
 export FOX_REMOVE_AAPT=0
 export FOX_DYNAMIC_SAMSUNG_FIX=0
 export OF_MANUAL_ROOT_VENDOR_ERROR_FIX=0
