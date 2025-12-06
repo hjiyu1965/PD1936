@@ -31,7 +31,7 @@ export OF_USE_LZ4_COMPRESSION=0
 
 # 设备配置
 export OF_MAINTAINER="YourName"
-export FOX_MAINTAINER_PATCH_VERSION=1  # 注意：这里去掉了引号，使用整数值
+export FOX_MAINTAINER_PATCH_VERSION=1  # 注意：使用整数值
 
 # 屏幕配置（PD1936 分辨率 1080x2400，20:9 比例）
 export OF_SCREEN_H=2400
@@ -98,5 +98,5 @@ export FOX_REMOVE_AAPT=0
 export FOX_DYNAMIC_SAMSUNG_FIX=0
 export OF_MANUAL_ROOT_VENDOR_ERROR_FIX=0
 
-# 启动配置
-lunch_combo twrp_PD1936-eng
+# 不需要 lunch_combo，OrangeFox 构建系统会自动处理
+# lunch_combo twrp_PD1936-eng  # 删除这行
