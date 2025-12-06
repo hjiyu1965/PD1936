@@ -16,14 +16,14 @@ TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 := 
 TARGET_CPU_VARIANT := generic
-TARGET_CPU_VARIANT_RUNTIME := generic
+TARGET_CPU_VARIANT_RUNTIME := kryo385
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv7-a-neon
+TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
-TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a9
+TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a73
 
 # APEX
 OVERRIDE_TARGET_FLATTEN_APEX := true
@@ -34,27 +34,47 @@ TARGET_NO_BOOTLOADER := true
 
 # Platform
 TARGET_BOARD_PLATFORM := msmnile
+TARGET_USES_64_BIT_BINDER := true
 
 # Display
 TARGET_SCREEN_DENSITY := 480
 TARGET_SCREEN_WIDTH := 1080
 TARGET_SCREEN_HEIGHT := 2400
-TW_THEME := portrait_hdpi
 
 # Status bar
 TW_STATUS_ICONS_ALIGN := center
 TW_Y_OFFSET := 80
 TW_H_OFFSET := 0
 
-# Brightness - 必须设置
+# Brightness
 TW_BRIGHTNESS_PATH := /sys/class/backlight/panel0-backlight/brightness
 TW_MAX_BRIGHTNESS := 255
 TW_DEFAULT_BRIGHTNESS := 160
 
-# Kernel
+# ==================== 内核配置 (选择一种方式) ====================
+
+# 选项1: 使用预编译内核 (推荐，更稳定)
+TARGET_FORCE_PREBUILT_KERNEL := true
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz-dtb
+TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
+BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
+
+# 注释掉源码内核的配置
+# TARGET_KERNEL_SOURCE := kernel/vivo/PD1936
+# TARGET_KERNEL_CONFIG := PD1936_defconfig
+
+# 选项2: 使用源码编译内核 (如果选择这个，注释掉上面的预编译配置)
+# TARGET_FORCE_PREBUILT_KERNEL := false
+# TARGET_KERNEL_SOURCE := kernel/vivo/PD1936
+# TARGET_KERNEL_CONFIG := PD1936_defconfig
+# TARGET_KERNEL_CLANG_COMPILE := true
+# TARGET_KERNEL_VERSION := 4.14
+
+# ==================== 公共内核参数 ====================
 BOARD_BOOTIMG_HEADER_VERSION := 2
 BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_CMDLINE := console=null earlycon=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=2048 loop.max_part=7 androidboot.usbcontroller=a600000.dwc3 product.version=PD1936_A_9.15.14 fingerprint.abbr=11/RP1A.200720.012 region_ver=W10 buildvariant=user androidboot.securebootkeyhash=2c0a52ffbd8db687b56f6a98d8840f46597a4dde6d9dc8d00039873ce6d74f60 androidboot.securebootkeyver=4
+BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200n8 earlycon=msm_geni_serial,0xa90000 androidboot.hardware=qcom androidboot.console=ttyMSM0 androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=2048 loop.max_part=7 androidboot.usbcontroller=a600000.dwc3
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_RAMDISK_OFFSET := 0x01000000
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
@@ -62,51 +82,72 @@ BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
 BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 BOARD_KERNEL_IMAGE_NAME := Image
-BOARD_INCLUDE_DTB_IN_BOOTIMG := true
-BOARD_KERNEL_SEPARATED_DTBO := true
-TARGET_KERNEL_CONFIG := PD1936_defconfig
-TARGET_KERNEL_SOURCE := kernel/vivo/PD1936
 
-# Kernel - prebuilt
-TARGET_FORCE_PREBUILT_KERNEL := true
+# 根据是否使用预编译调整DTB设置
 ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
-TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
-BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
-BOARD_INCLUDE_DTB_IN_BOOTIMG := 
-BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
-BOARD_KERNEL_SEPARATED_DTBO := 
+    BOARD_INCLUDE_DTB_IN_BOOTIMG := false
+    BOARD_KERNEL_SEPARATED_DTBO := false
+else
+    BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+    BOARD_KERNEL_SEPARATED_DTBO := true
 endif
 
-# Partitions
+# ==================== 分区配置 (需要根据实际调整) ====================
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 100663296
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 4294967296 # 4GB (estimate)
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 1073741824 # 1GB (estimate)
-BOARD_VENDORIMAGE_PARTITION_SIZE := 1610612736 # 1.5GB (estimate)
+BOARD_DTBOIMG_PARTITION_SIZE := 8388608
+
+# 系统分区 - 根据实际调整大小
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 8589934592 # 8GB (更实际的估计)
+
+# 用户数据分区 - 通常很大
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 12884901888 # 12GB (示例)
+
+# Vendor分区
+BOARD_VENDORIMAGE_PARTITION_SIZE := 2147483648 # 2GB
+
+# 其他分区
+BOARD_PRODUCTIMAGE_PARTITION_SIZE := 1073741824 # 1GB
+BOARD_SYSTEM_EXTIMAGE_PARTITION_SIZE := 1073741824 # 1GB
+BOARD_ODMIMAGE_PARTITION_SIZE := 536870912 # 512MB
 BOARD_METADATAIMAGE_PARTITION_SIZE := 16777216 # 16MB
-BOARD_DTBOIMG_PARTITION_SIZE := 8388608 # 8MB
 
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+# 启用动态分区 (如果设备支持)
+# BOARD_SUPER_PARTITION_SIZE := 12884901888 # 12GB
+# BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
+# BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 12884901888 # 12GB
+# BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor product system_ext odm
+
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
+BOARD_USES_SYSTEM_OTHER_ODEX := true
 BOARD_HAS_LARGE_FILESYSTEM := true
-BOARD_SYSTEMIMAGE_PARTITION_TYPE := ext4
-BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_METADATAIMAGE_FILE_SYSTEM_TYPE := ext4
-TARGET_COPY_OUT_VENDOR := vendor
 
-# Recovery
+# 文件系统类型
+BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_METADATAIMAGE_FILE_SYSTEM_TYPE := ext4
+
+TARGET_COPY_OUT_VENDOR := vendor
+TARGET_COPY_OUT_PRODUCT := product
+TARGET_COPY_OUT_SYSTEM_EXT := system_ext
+TARGET_COPY_OUT_ODM := odm
+
+# ==================== Recovery配置 ====================
 BOARD_INCLUDE_RECOVERY_DTBO := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_SUPPRESS_SECURE_ERASE := true
 BOARD_USE_FRAMEBUFFER_ALPHA_CHANNEL := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
-TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
-# Security patch level
+# ==================== 安全配置 ====================
 VENDOR_SECURITY_PATCH := 2021-08-01
 
 # Verified Boot
@@ -117,12 +158,12 @@ BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 
-# Hack: prevent anti rollback
+# 防回滚保护
 PLATFORM_SECURITY_PATCH := 2099-12-31
-VENDOR_SECURITY_PATCH := 2099-12-31
 PLATFORM_VERSION := 16.1.0
 
-# OrangeFox Configuration
+# ==================== OrangeFox 11 配置 ====================
+# 工具配置
 FOX_USE_TWRP_RECOVERY_IMAGE_BUILDER := true
 FOX_USE_NANO_EDITOR := true
 FOX_USE_BASH_SHELL := true
@@ -133,7 +174,7 @@ FOX_USE_SED_BINARY := true
 FOX_USE_GREP_BINARY := true
 FOX_USE_LZMA_COMPRESSION := true
 
-# Display - OrangeFox
+# 显示配置
 FOX_THEME := "11"
 FOX_CUSTOM_BATTERY_PERCENTAGE := true
 FOX_CUSTOM_BATTERY_CAPACITY := "4000"
@@ -141,68 +182,67 @@ FOX_CUSTOM_BATTERY_TEMP_PATH := "/sys/class/power_supply/battery/temp"
 FOX_CUSTOM_BATTERY_VOLTAGE_PATH := "/sys/class/power_supply/battery/voltage_now"
 FOX_CUSTOM_BATTERY_CURRENT_PATH := "/sys/class/power_supply/battery/current_now"
 
-# Brightness - OrangeFox
+# 亮度配置
 FOX_BRIGHTNESS_PATH := /sys/class/backlight/panel0-backlight/brightness
 FOX_MAX_BRIGHTNESS := 255
 FOX_DEFAULT_BRIGHTNESS := 160
 
-# Version - 注意：FOX_VERSION 已被弃用，使用 FOX_MAINTAINER_PATCH_VERSION
-# FOX_VERSION := R11.1_1  # 已弃用，不要使用
-FOX_BUILD_TYPE := Stable
+# 版本信息
+FOX_BUILD_TYPE := Beta
 FOX_MAINTAINER := YourName
 FOX_MAINTAINER_PATCH_VERSION := 1
 
-# Features
+# 功能支持
 FOX_SUPPORT_INPUT_VERIFY := true
 FOX_SUPPORT_INPUT_DISABLE_VERIFICATION := false
 FOX_SUPPORT_PREBUILT_KERNEL := true
 FOX_SUPPORT_PREBUILT_DTB := true
 FOX_SUPPORT_PREBUILT_DTBO := true
+FOX_SUPPORT_ALL_BLOCK_OTA_UPDATES := true
+FOX_FIX_OTA_UPDATE_MANUAL_FLASH_ERROR := true
 
-# UI
+# UI配置
 FOX_USE_UNLOCK_BUTTON := true
 FOX_USE_LOCKED_BOOT := true
 FOX_USE_STOCK_KERNEL := true
 FOX_USE_STOCK_RECOVERY_IMAGE := false
-FOX_USE_SPECIFIC_MAGISK_ZIP := ""
-FOX_USE_SPECIFIC_SHRP_THEME := ""
-FOX_USE_SPECIFIC_TWRP_THEME := ""
 
-# Recovery模式所需的设备模块 - 触摸屏固件
+# ==================== 触摸屏固件支持 ====================
+# 触摸屏设备模块
 TARGET_RECOVERY_DEVICE_MODULES += \
-    touch_firmwares_recovery.bin \
-    TP-CONFIG-FW-PD1936-LCMID33-VER0x0028.bin \
-    TP-CONFIG-FW-PD1936-LCMID33-VER0x002C.bin \
-    TP-FW-PD1936-LCMID33-VER0x502100028.bin \
-    TP-FW-PD1936-LCMID33-VER0x50213002C.bin
+    android.hardware.vibrator-V1-ndk_platform.so \
+    libion \
+    libxml2 \
+    vendor.display.config@1.0 \
+    vendor.display.config@2.0
 
-# 触摸屏固件配置
+# 触摸屏配置
 TW_LOAD_VENDOR_MODULES := true
 TW_LOAD_VENDOR_BINS := true
 TW_OEM_BUILD := true
 TW_INCLUDE_CRYPTO_FBE := true
+FOX_SUPPORT_TOUCH_FIRMWARE := true
+FOX_TOUCH_FIRMWARE_PATH := "/vendor/firmware/"
 
-# 指定固件安装路径
+# 固件链接文件
 TW_RECOVERY_ADDITIONAL_RELINK_BINARY_FILES += \
-    $(TARGET_OUT_VENDOR)/bin/tp_firmware_selector.sh \
-    $(TARGET_OUT_VENDOR)/lib/modules/touchscreen.ko
+    $(TARGET_OUT_VENDOR_EXECUTABLES)/hw/vendor.qti.hardware.vibrator.service \
+    $(TARGET_OUT_VENDOR_EXECUTABLES)/hw/android.hardware.vibrator-service.example
 
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libtouchscreen.so
+    $(TARGET_OUT_SHARED_LIBRARIES)/android.hardware.vibrator-V1-ndk_platform.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so
 
-# Crypto
+# ==================== 加密配置 ====================
 FOX_USE_DATA_DECRYPTION := true
 FOX_USE_F2FS_COMPRESSION := true
 FOX_USE_FSCRYPT := true
 FOX_USE_DM_VERITY := true
 FOX_USE_AVB := true
 
-# 添加触摸屏固件支持
-FOX_SUPPORT_TOUCH_FIRMWARE := true
-FOX_TOUCH_FIRMWARE_PATH := "/vendor/firmware/"
-FOX_TOUCH_DRIVER_MODULE := "touchscreen_driver.ko"
-
-# TWRP Configuration
+# ==================== TWRP 配置 ====================
+TW_THEME := portrait_hdpi
 RECOVERY_SDCARD_ON_DATA := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_INCLUDE_CRYPTO := true
@@ -211,7 +251,7 @@ TW_INCLUDE_FBE_METADATA_DECRYPT := true
 TW_USE_FSCRYPT_POLICY := 1
 TW_PREPARE_DATA_MEDIA_EARLY := true
 
-# 设置语言和时区
+# 语言和时区
 TW_DEFAULT_LANGUAGE := zh_CN
 TW_EXTRA_LANGUAGES := true
 TW_DEFAULT_TIME_ZONE := "Asia/Shanghai"
@@ -223,18 +263,18 @@ TW_INCLUDE_FUSE_NTFS := true
 TW_INCLUDE_RESETPROP := true
 TW_INCLUDE_REPACKTOOLS := true
 
-# Touch
+# 触摸和UI
 TW_IGNORE_MISC_WIPE_DATA := true
 TW_USE_TOOLBOX := true
 TW_EXCLUDE_TWRPAPP := true
 TW_EXCLUDE_SUPERSU := true
 
-# Device-specific screen
+# 设备特定屏幕
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_USE_MODEL_HARDWARE_ID_FOR_DEVICE_ID := true
 TW_DEVICE_VERSION := PD1936_V1936A_11
 
-# 禁用 OrangeFox 的一些检查
+# OrangeFox 特定检查
 OF_DISABLE_MIUI_SPECIFIC_FEATURES := 1
 OF_NO_TREBLE_COMPATIBILITY_CHECK := 1
 OF_USE_MAGISKBOOT := 1
@@ -242,7 +282,7 @@ OF_USE_MAGISKBOOT_FOR_ALL_PATCHES := 1
 OF_SKIP_FBE_DECRYPTION := 0
 OF_USE_TWRP_SAR_DETECT := 1
 
-# Exclusions
+# 排除项
 FOX_EXCLUDE_NANO_EDITOR := false
 FOX_EXCLUDE_BASH_SHELL := false
 FOX_EXCLUDE_TAR_BINARY := false
@@ -251,145 +291,25 @@ FOX_EXCLUDE_XZ_UTILS := false
 FOX_EXCLUDE_SED_BINARY := false
 FOX_EXCLUDE_GREP_BINARY := false
 
-# Logging
+# 日志
 FOX_INCLUDE_LOG := true
 FOX_LOG_PATH := "/tmp/recovery.log"
 
-# Device-specific
+# 设备特定信息
 FOX_DEVICE_MODEL := "V1936A"
 FOX_DEVICE_BRAND := "vivo"
 FOX_DEVICE_NAME := "PD1936"
 
-# Misc
+# 系统属性
 FOX_USE_SYSTEM_PROPS := true
 FOX_USE_SPECIFIC_PROPS := \
     "ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental"
 
-# 备份排除列表
-TW_BACKUP_EXCLUSIONS := "/data/fonts/files"TARGET_USERIMAGES_USE_F2FS := true
+# 备份排除
+TW_BACKUP_EXCLUSIONS := "/data/fonts/files"
 
-# Security patch level
-VENDOR_SECURITY_PATCH := 2021-08-01
+# 附加恢复模块
+TW_RECOVERY_ADDITIONAL_RELINK_FILES += \
+    $(TARGET_OUT_EXECUTABLES)/twrp \
+    $(TARGET_OUT_EXECUTABLES)/pigz
 
-# Verified Boot
-BOARD_AVB_ENABLE := true
-BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
-BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
-BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
-BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
-BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
-
-# Hack: prevent anti rollback
-PLATFORM_SECURITY_PATCH := 2099-12-31
-VENDOR_SECURITY_PATCH := 2099-12-31
-PLATFORM_VERSION := 16.1.0
-
-# OrangeFox Configuration
-FOX_USE_TWRP_RECOVERY_IMAGE_BUILDER := true
-FOX_USE_NANO_EDITOR := true
-FOX_USE_BASH_SHELL := true
-FOX_USE_TAR_BINARY := true
-FOX_USE_ZIP_BINARY := true
-FOX_USE_XZ_UTILS := true
-FOX_USE_SED_BINARY := true
-FOX_USE_GREP_BINARY := true
-FOX_USE_LZMA_COMPRESSION := true
-
-# Display
-FOX_THEME := "11"
-FOX_CUSTOM_BATTERY_PERCENTAGE := true
-FOX_CUSTOM_BATTERY_CAPACITY := "4000"
-FOX_CUSTOM_BATTERY_TEMP_PATH := "/sys/class/power_supply/battery/temp"
-FOX_CUSTOM_BATTERY_VOLTAGE_PATH := "/sys/class/power_supply/battery/voltage_now"
-FOX_CUSTOM_BATTERY_CURRENT_PATH := "/sys/class/power_supply/battery/current_now"
-
-# Brightness
-FOX_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
-FOX_MAX_BRIGHTNESS := 255
-FOX_DEFAULT_BRIGHTNESS := 160
-
-
-# Version - 只使用 FOX_MAINTAINER_PATCH_VERSION
-# FOX_VERSION := R11.1_1  # 删除或注释掉这行，已弃用
-FOX_BUILD_TYPE := Stable
-FOX_MAINTAINER := YourName
-FOX_MAINTAINER_PATCH_VERSION := 1
-# Features
-FOX_SUPPORT_INPUT_VERIFY := true
-FOX_SUPPORT_INPUT_DISABLE_VERIFICATION := false
-FOX_SUPPORT_PREBUILT_KERNEL := true
-FOX_SUPPORT_PREBUILT_DTB := true
-FOX_SUPPORT_PREBUILT_DTBO := true
-# Display
-TARGET_SCREEN_DENSITY := 480
-TARGET_SCREEN_WIDTH := 1080
-TARGET_SCREEN_HEIGHT := 2400
-TW_THEME := portrait_hdpi
-
-# Status bar
-TW_STATUS_ICONS_ALIGN := center
-TW_Y_OFFSET := 80
-TW_H_OFFSET := 0
-
-# Recovery模式所需的设备模块 - 触摸屏固件
-TARGET_RECOVERY_DEVICE_MODULES += \
-    touch_firmwares_recovery.bin \
-    TP-CONFIG-FW-PD1936-LCMID33-VER0x0028.bin \
-    TP-CONFIG-FW-PD1936-LCMID33-VER0x002C.bin \
-    TP-FW-PD1936-LCMID33-VER0x502100028.bin \
-    TP-FW-PD1936-LCMID33-VER0x50213002C.bin
-
-# 触摸屏固件配置
-TW_LOAD_VENDOR_MODULES := true
-TW_LOAD_VENDOR_BINS := true
-TW_OEM_BUILD := true
-TW_INCLUDE_CRYPTO_FBE := true
-
-# 指定固件安装路径
-TW_RECOVERY_ADDITIONAL_RELINK_BINARY_FILES += \
-    $(TARGET_OUT_VENDOR)/bin/tp_firmware_selector.sh \
-    $(TARGET_OUT_VENDOR)/lib/modules/touchscreen.ko
-
-TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libtouchscreen.so
-
-# Crypto
-FOX_USE_DATA_DECRYPTION := true
-FOX_USE_F2FS_COMPRESSION := true
-FOX_USE_FSCRYPT := true
-FOX_USE_DM_VERITY := true
-FOX_USE_AVB := true
-
-# 添加触摸屏固件支持
-FOX_SUPPORT_TOUCH_FIRMWARE := true
-FOX_TOUCH_FIRMWARE_PATH := "/vendor/firmware/"
-FOX_TOUCH_DRIVER_MODULE := "touchscreen_driver.ko"
-# Crypto
-FOX_USE_DATA_DECRYPTION := true
-FOX_USE_F2FS_COMPRESSION := true
-FOX_USE_FSCRYPT := true
-FOX_USE_DM_VERITY := true
-FOX_USE_AVB := true
-
-# Exclusions
-FOX_EXCLUDE_NANO_EDITOR := false
-FOX_EXCLUDE_BASH_SHELL := false
-FOX_EXCLUDE_TAR_BINARY := false
-FOX_EXCLUDE_ZIP_BINARY := false
-FOX_EXCLUDE_XZ_UTILS := false
-FOX_EXCLUDE_SED_BINARY := false
-FOX_EXCLUDE_GREP_BINARY := false
-
-# Logging
-FOX_INCLUDE_LOG := true
-FOX_LOG_PATH := "/tmp/recovery.log"
-
-# Device-specific
-FOX_DEVICE_MODEL := "V1936A"
-FOX_DEVICE_BRAND := "vivo"
-FOX_DEVICE_NAME := "PD1936"
-
-# Misc
-FOX_USE_SYSTEM_PROPS := true
-FOX_USE_SPECIFIC_PROPS := \
-    "ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental"
