@@ -135,8 +135,9 @@ FOX_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
 FOX_MAX_BRIGHTNESS := 255
 FOX_DEFAULT_BRIGHTNESS := 160
 
-# Version
-FOX_VERSION := R11.1_1
+
+# Version - 只使用 FOX_MAINTAINER_PATCH_VERSION
+# FOX_VERSION := R11.1_1  # 删除或注释掉这行，已弃用
 FOX_BUILD_TYPE := Stable
 FOX_MAINTAINER := YourName
 FOX_MAINTAINER_PATCH_VERSION := 1
