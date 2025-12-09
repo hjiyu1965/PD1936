@@ -104,6 +104,7 @@ TW_EXTRA_LANGUAGES := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
+TW_MAX_BRIGHTNESS := 255
 # 复制触摸固件到恢复镜像
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES:= \
     vendor/lib/modules/modules.load
