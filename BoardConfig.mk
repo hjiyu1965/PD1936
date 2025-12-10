@@ -105,24 +105,6 @@ TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
 TW_MAX_BRIGHTNESS := 255
-# 复制触摸固件到恢复镜像
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/firmware/CAMERA_ICP.elf:$(TARGET_COPY_OUT_VENDOR)/firmware/CAMERA_ICP.elf \
-    $(LOCAL_PATH)/firmware/TP-CONFIG-FW-PD1936-LCMID33-VER0x0028.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/TP-CONFIG-FW-PD1936-LCMID33-VER0x0028.bin \
-    $(LOCAL_PATH)/firmware/TP-CONFIG-FW-PD1936-LCMID33-VER0x002C.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/TP-CONFIG-FW-PD1936-LCMID33-VER0x002C.bin \
-    $(LOCAL_PATH)/firmware/TP-FW-PD1936-LCMID33-VER0x502100028.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/TP-FW-PD1936-LCMID33-VER0x502100028.bin \
-    $(LOCAL_PATH)/firmware/TP-FW-PD1936-LCMID33-VER0x50213002C.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/TP-FW-PD1936-LCMID33-VER0x50213002C.bin \
-    $(LOCAL_PATH)/firmware/a612_rgmu.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/a612_rgmu.bin \
-    $(LOCAL_PATH)/firmware/a618_gmu.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/a618_gmu.bin \
-    $(LOCAL_PATH)/firmware/a630_gmu.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/a630_gmu.bin \
-    $(LOCAL_PATH)/firmware/a630_sqe.fw:$(TARGET_COPY_OUT_VENDOR)/firmware/a630_sqe.fw \
-    $(LOCAL_PATH)/firmware/a640_gmu.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/a640_gmu.bin \
-    $(LOCAL_PATH)/firmware/a640_zap.b00:$(TARGET_COPY_OUT_VENDOR)/firmware/a640_zap.b00 \
-    $(LOCAL_PATH)/firmware/a640_zap.b01:$(TARGET_COPY_OUT_VENDOR)/firmware/a640_zap.b01 \
-    $(LOCAL_PATH)/firmware/a640_zap.b02:$(TARGET_COPY_OUT_VENDOR)/firmware/a640_zap.b02 \
-    $(LOCAL_PATH)/firmware/a640_zap.elf:$(TARGET_COPY_OUT_VENDOR)/firmware/a640_zap.elf \
-    $(LOCAL_PATH)/firmware/a640_zap.mdt:$(TARGET_COPY_OUT_VENDOR)/firmware/a640_zap.mdt \
-    $(LOCAL_PATH)/firmware/bdwlan.bin.4g:$(TARGET_COPY_OUT_VENDOR)/firmware/bdwlan.bin.4g \
-    $(LOCAL_PATH)/firmware/touch_firmwares.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/touch_firmwares.bin
+# 
 TW_USE_SERIALNO_PROPERTY_FOR_DEVICE_ID := true
 TW_INCLUDE_CRYPTO := true
