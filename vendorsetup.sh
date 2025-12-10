@@ -37,8 +37,8 @@ export OF_FORCE_PREBUILT_KERNEL=1
 # export OF_CLOCK_POS=0
 
 # 维护者信息
-export OF_MAINTAINER="YourNameHere"
-export FOX_MAINTAINER_PATCH_VERSION="01"
+export OF_MAINTAINER="hjiyu1965"
+export FOX_MAINTAINER_PATCH_VERSION=1
 
 # 主题设置
 export TW_THEME="portrait_hdpi"
