@@ -1,6 +1,13 @@
 on early-boot
     start qseecomd
     start cryptfshw-1-0
+on early-init
+    setprop ro.vivo.product.model PD1936
+    setprop ro.product.model PD1936
+    setprop ro.product.board sm8150v1_64_6360
+
+on boot
+    exec u:r:recovery:s0 root root -- /system/bin/vts_app_recovery --update
 
 # just boot in fastboot mode, fastbootd service need vendor.boot-hal-1-0 & health-hal-2-0
 on property:recovery.fastboot_mode=1
