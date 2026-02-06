@@ -194,9 +194,4 @@ service touchupdate /vendor/bin/vts_app_recovery --update
 	seclabel u:r:vts_app:s0
 	oneshot
 
-service touchtest /vendor/bin/vts_app_recovery --sensor-test
-	class core
-	user system
-	disabled
-	seclabel u:r:vts_app:s0
-	oneshot
+    exec u:r:recovery:s0 root root -- /system/bin/vts_app_recovery --update
