@@ -104,3 +104,12 @@ TW_EXTRA_LANGUAGES := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
+TW_HAS_MTP := true
+TW_EXCLUDE_USB_INIT := true
+TARGET_RECOVERY_USB_RC := $(DEVICE_PATH)/recovery/init.recovery.usb.rc
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_FBE := true     
+TW_CRYPTO_FS_TYPE := ext4  
+TW_CRYPTO_USE_QSEE := true
+TW_CRYPTO_USE_SYSTEM_VOLD := true
+       
