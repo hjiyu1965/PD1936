@@ -107,9 +107,7 @@ TW_USE_TOOLBOX := true
 
 # USB Configuration (use TWRP default init.recovery.usb.rc)
 TW_HAS_MTP := true
-TW_EXCLUDE_USB_INIT := false          # 改为 false，让 TWRP 自动包含默认的 usb rc 文件
-# 如果有自定义需求，可保留以下行并确保文件存在，否则建议注释
-# TARGET_RECOVERY_USB_RC := $(DEVICE_PATH)/recovery/init.recovery.usb.rc
+TARGET_RECOVERY_USB_RC := $(DEVICE_PATH)/recovery/init.recovery.usb.rc
 
 # Encryption / Decryption support for /data (FBE for Android 11+)
 TW_INCLUDE_CRYPTO := true
@@ -118,5 +116,4 @@ TW_USE_FSCRYPT_POLICY := 2            # Android 10+ 使用 fscrypt v2
 TW_CRYPTO_FS_TYPE := ext4
 # 高通设备密钥支持
 TW_CRYPTO_USE_QSEE := true
-# 注释掉 TW_CRYPTO_USE_SYSTEM_VOLD，使用 TWRP 自带的 FBE 解密，避免引入 vold_decrypt.rc
-# TW_CRYPTO_USE_SYSTEM_VOLD := true
+e
