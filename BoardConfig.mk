@@ -112,8 +112,8 @@ TARGET_RECOVERY_USB_RC := $(DEVICE_PATH)/recovery/init.recovery.usb.rc
 # Encryption / Decryption support for /data (FBE for Android 11+)
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_FBE := true
-TW_USE_FSCRYPT_POLICY := 2            # Android 10+ 使用 fscrypt v2
+TW_USE_FSCRYPT_POLICY := 2            
 TW_CRYPTO_FS_TYPE := ext4
 # 高通设备密钥支持
 TW_CRYPTO_USE_QSEE := true
-e
+
