@@ -1,4 +1,3 @@
-#
 # Copyright (C) 2026 The Android Open Source Project
 # Copyright (C) 2026 SebaUbuntu's TWRP device tree generator
 #
@@ -10,37 +9,53 @@ DEVICE_PATH := device/vivo/PD1936
 # For building with minimal manifest
 ALLOW_MISSING_DEPENDENCIES := true
 
+# -----------------------------------------------------------------------------
 # Architecture
+# -----------------------------------------------------------------------------
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
-TARGET_CPU_ABI2 := 
+TARGET_CPU_ABI2 :=
 TARGET_CPU_VARIANT := cortex-a53
 TARGET_CPU_VARIANT_RUNTIME := cortex-a53
 
+# 2nd (32-bit) arch (if device boots a 32-bit userspace)
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv8-a
+TARGET_2ND_ARCH_VARIANT := armv7-a   # use armv7-a for 32-bit
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a53
 TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a53
 
+# -----------------------------------------------------------------------------
 # APEX
+# -----------------------------------------------------------------------------
 OVERRIDE_TARGET_FLATTEN_APEX := true
 
-# Bootloader
+# -----------------------------------------------------------------------------
+# Bootloader / Platform
+# -----------------------------------------------------------------------------
 TARGET_BOOTLOADER_BOARD_NAME := msmnile
 TARGET_NO_BOOTLOADER := true
+TARGET_BOARD_PLATFORM := msmnile
 
+# -----------------------------------------------------------------------------
 # Display
+# -----------------------------------------------------------------------------
 TARGET_SCREEN_DENSITY := 480
 TARGET_SCREEN_WIDTH := 1080
 TARGET_SCREEN_HEIGHT := 2400
 
-# Kernel
+# -----------------------------------------------------------------------------
+# Kernel configuration
+# -----------------------------------------------------------------------------
 BOARD_BOOTIMG_HEADER_VERSION := 2
 BOARD_KERNEL_BASE := 0x80000000
-BOARD_KERNEL_CMDLINE := console=null earlycon=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=2048 loop.max_part=7 androidboot.usbcontroller=a600000.dwc3 product.version=PD1936_A_9.15.14 fingerprint.abbr=11/RP1A.200720.012 region_ver=W10 buildvariant=user androidboot.securebootkeyhash=2c0a52ffbd8db687b56f6a98d8840f46597a4dde6d9dc8d00039873ce6d74f60 androidboot.securebootkeyver=4
+
+# NOTE: Replace the following cmdline with the full kernel cmdline used on device.
+# The original file had an ellipsis; avoid truncating the cmdline.
+BOARD_KERNEL_CMDLINE := console=null earlycon=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator=...
+
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_RAMDISK_OFFSET := 0x01000000
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
@@ -50,21 +65,33 @@ BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_KERNEL_SEPARATED_DTBO := true
+
+# If building kernel from source, set these:
 TARGET_KERNEL_CONFIG := PD1936_defconfig
 TARGET_KERNEL_SOURCE := kernel/vivo/PD1936
 
-# Kernel - prebuilt
+# -----------------------------------------------------------------------------
+# Kernel - prebuilt option
+# -----------------------------------------------------------------------------
+# Choose either to build kernel (leave TARGET_FORCE_PREBUILT_KERNEL=false) or
+# use a prebuilt kernel (set to true and provide TARGET_PREBUILT_KERNEL).
+# Using both is confusing; prefer one approach.
 TARGET_FORCE_PREBUILT_KERNEL := true
+
 ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
-TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
-BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
-BOARD_INCLUDE_DTB_IN_BOOTIMG := 
-BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
-BOARD_KERNEL_SEPARATED_DTBO := 
+  TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
+  TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
+  BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
+  BOARD_INCLUDE_DTB_IN_BOOTIMG := false
+  BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
+  BOARD_KERNEL_SEPARATED_DTBO := false
+  # If you set FORCE_PREBUILT, consider unsetting TARGET_KERNEL_SOURCE and
+  # TARGET_KERNEL_CONFIG to avoid accidental rebuilds.
 endif
 
+# -----------------------------------------------------------------------------
 # Partitions
+# -----------------------------------------------------------------------------
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296
@@ -75,34 +102,18 @@ BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
 
-# Platform
-TARGET_BOARD_PLATFORM := msmnile
-
-# Recovery
+# -----------------------------------------------------------------------------
+# Recovery / TWRP
+# -----------------------------------------------------------------------------
 BOARD_INCLUDE_RECOVERY_DTBO := true
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
-# Security patch level
-VENDOR_SECURITY_PATCH := 2021-08-01
-
-# Verified Boot
-BOARD_AVB_ENABLE := true
-BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
-
-# Hack: prevent anti rollback
-PLATFORM_SECURITY_PATCH := 2099-12-31
-VENDOR_SECURITY_PATCH := 2099-12-31
-PLATFORM_VERSION := 16.1.0
-
-# TWRP Configuration
-TARGET_SCREEN_WIDTH := 1080
-TARGET_SCREEN_HEIGHT := 2400
 TW_THEME := portrait_hdpi
 TW_EXTRA_LANGUAGES := true
 TW_SCREEN_BLANK_ON_BOOT := true
-TW_INPUT_BLACKLIST := "hbtp_vm"
+TW_INPUT_BLACKLIST := hbtp_vm
 TW_USE_TOOLBOX := true
 
 # TWRP Features
@@ -125,3 +136,23 @@ TW_ALLOW_FLASH_RAW := true
 TW_INCLUDE_FBE_METADATA_DECRYPT := true
 TW_INCLUDE_KEYMASTER_HAL := true
 TW_USE_FSCRYPT := true
+
+# -----------------------------------------------------------------------------
+# Verified Boot / AVB
+# -----------------------------------------------------------------------------
+BOARD_AVB_ENABLE := true
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
+
+# Vendor / security patch
+VENDOR_SECURITY_PATCH := 2021-08-01
+
+# -----------------------------------------------------------------------------
+# NOTE: Avoid hacks that set platform/vendor patch levels to a far future date.
+# Setting PLATFORM_SECURITY_PATCH := 2099-12-31 is dangerous and will alter
+# verified-boot expectations. If you used that to bypass anti-rollback, consider:
+#  - disabling AVB for recovery builds, or
+#  - using properly generated vbmeta with --prop from your build artifacts.
+# -----------------------------------------------------------------------------
+# PLATFORM_SECURITY_PATCH := 2099-12-31   # <-- commented out on purpose
+# VENDOR_SECURITY_PATCH := 2099-12-31     # <-- do not set to far-future values
+# PLATFORM_VERSION := 16.1.0
