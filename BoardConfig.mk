@@ -1,6 +1,6 @@
 #
-# Copyright (C) 2025 The Android Open Source Project
-# Copyright (C) 2025 SebaUbuntu's TWRP device tree generator
+# Copyright (C) 2026 The Android Open Source Project
+# Copyright (C) 2026 SebaUbuntu's TWRP device tree generator
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -15,15 +15,15 @@ TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 := 
-TARGET_CPU_VARIANT := generic
-TARGET_CPU_VARIANT_RUNTIME := generic
+TARGET_CPU_VARIANT := cortex-a53
+TARGET_CPU_VARIANT_RUNTIME := cortex-a53
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv7-a-neon
+TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := generic
-TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a9
+TARGET_2ND_CPU_VARIANT := cortex-a53
+TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a53
 
 # APEX
 OVERRIDE_TARGET_FLATTEN_APEX := true
@@ -34,10 +34,12 @@ TARGET_NO_BOOTLOADER := true
 
 # Display
 TARGET_SCREEN_DENSITY := 480
+TARGET_SCREEN_WIDTH := 1080
+TARGET_SCREEN_HEIGHT := 2400
 
 # Kernel
 BOARD_BOOTIMG_HEADER_VERSION := 2
-BOARD_KERNEL_BASE := 0x00000000
+BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_CMDLINE := console=null earlycon=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=2048 loop.max_part=7 androidboot.usbcontroller=a600000.dwc3 product.version=PD1936_A_9.15.14 fingerprint.abbr=11/RP1A.200720.012 region_ver=W10 buildvariant=user androidboot.securebootkeyhash=2c0a52ffbd8db687b56f6a98d8840f46597a4dde6d9dc8d00039873ce6d74f60 androidboot.securebootkeyver=4
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_RAMDISK_OFFSET := 0x01000000
@@ -88,10 +90,6 @@ VENDOR_SECURITY_PATCH := 2021-08-01
 # Verified Boot
 BOARD_AVB_ENABLE := true
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
-BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
-BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
-BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
-BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 
 # Hack: prevent anti rollback
 PLATFORM_SECURITY_PATCH := 2099-12-31
@@ -99,21 +97,32 @@ VENDOR_SECURITY_PATCH := 2099-12-31
 PLATFORM_VERSION := 16.1.0
 
 # TWRP Configuration
+TARGET_SCREEN_WIDTH := 1080
+TARGET_SCREEN_HEIGHT := 2400
 TW_THEME := portrait_hdpi
+TWRES_PATH := device/vivo/PD1936/recovery/root/recovery_resources
 TW_EXTRA_LANGUAGES := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
 
-# USB Configuration (use TWRP default init.recovery.usb.rc)
-TW_HAS_MTP := true
-TARGET_RECOVERY_USB_RC := $(DEVICE_PATH)/recovery/init.recovery.usb.rc
-
-# Encryption / Decryption support for /data (FBE for Android 11+)
+# TWRP Features
 TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_FBE := true
-TW_USE_FSCRYPT_POLICY := 2            
-TW_CRYPTO_FS_TYPE := ext4
-# 高通设备密钥支持
-TW_CRYPTO_USE_QSEE := true
+TW_INCLUDE_CRYPTO_FBE := true
+TW_INCLUDE_CRYPTO_METADATA := true
+TW_INCLUDE_FUSE := true
+TW_INCLUDE_EXFAT := true
+TW_INCLUDE_NTFS := true
+TW_INCLUDE_ASHMEM := true
+TW_INCLUDE_PSTORE := true
+TW_INCLUDE_LOGCAT := true
+TW_INCLUDE_GREP := true
+TW_INCLUDE_SHA1SUM := true
+TW_INCLUDE_SHA256SUM := true
+TW_INCLUDE_CRYPTFS := true
+TW_ALLOW_FLASH_RAW := true
 
+# Decrypt /data
+TW_INCLUDE_FBE_METADATA_DECRYPT := true
+TW_INCLUDE_KEYMASTER_HAL := true
+TW_USE_FSCRYPT := true

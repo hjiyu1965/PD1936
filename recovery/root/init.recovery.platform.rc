@@ -2,7 +2,6 @@ on early-boot
     start qseecomd
     start cryptfshw-1-0
 
-
 # just boot in fastboot mode, fastbootd service need vendor.boot-hal-1-0 & health-hal-2-0
 on property:recovery.fastboot_mode=1
     start vendor.boot-hal-1-0
