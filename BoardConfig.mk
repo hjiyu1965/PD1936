@@ -136,7 +136,7 @@ TW_ALLOW_FLASH_RAW := true
 TW_INCLUDE_FBE_METADATA_DECRYPT := true
 TW_INCLUDE_KEYMASTER_HAL := true
 TW_USE_FSCRYPT := true
-
+TW_CRYPTO_FS_TYPE := f2fs
 # -----------------------------------------------------------------------------
 # Verified Boot / AVB
 # -----------------------------------------------------------------------------
