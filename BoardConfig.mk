@@ -100,7 +100,6 @@ PLATFORM_VERSION := 16.1.0
 TARGET_SCREEN_WIDTH := 1080
 TARGET_SCREEN_HEIGHT := 2400
 TW_THEME := portrait_hdpi
-TWRES_PATH := device/vivo/PD1936/recovery/root/recovery_resources
 TW_EXTRA_LANGUAGES := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
