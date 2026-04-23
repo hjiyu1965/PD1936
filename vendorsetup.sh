@@ -1,3 +1,3 @@
+#!/bin/sh
 export ALLOW_MISSING_DEPENDENCIES=true
- lunch twrp_DP1936-eng
-mka recoveryimage
+add_lunch_combo twrp_DP1936-eng
