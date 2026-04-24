@@ -9,35 +9,52 @@ DEVICE_PATH := device/vivo/PD1936
 # For building with minimal manifest
 ALLOW_MISSING_DEPENDENCIES := true
 
+# -----------------------------------------------------------------------------
 # Architecture
+# -----------------------------------------------------------------------------
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
-TARGET_CPU_ABI2 := 
-TARGET_CPU_VARIANT := generic
-TARGET_CPU_VARIANT_RUNTIME := generic
+TARGET_CPU_ABI2 :=
+TARGET_CPU_VARIANT := cortex-a53
+TARGET_CPU_VARIANT_RUNTIME := cortex-a53
 
+# 2nd (32-bit) arch (if device boots a 32-bit userspace)
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv7-a-neon
+TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := generic
-TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a9
+TARGET_2ND_CPU_VARIANT := cortex-a53
+TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a53
 
+# -----------------------------------------------------------------------------
 # APEX
+# -----------------------------------------------------------------------------
 OVERRIDE_TARGET_FLATTEN_APEX := true
 
-# Bootloader
+# -----------------------------------------------------------------------------
+# Bootloader / Platform
+# -----------------------------------------------------------------------------
 TARGET_BOOTLOADER_BOARD_NAME := msmnile
 TARGET_NO_BOOTLOADER := true
+TARGET_BOARD_PLATFORM := msmnile
 
+# -----------------------------------------------------------------------------
 # Display
+# -----------------------------------------------------------------------------
 TARGET_SCREEN_DENSITY := 480
+TARGET_SCREEN_WIDTH := 1080
+TARGET_SCREEN_HEIGHT := 2400
 
-# Kernel
+# -----------------------------------------------------------------------------
+# Kernel configuration
+# -----------------------------------------------------------------------------
 BOARD_BOOTIMG_HEADER_VERSION := 2
-BOARD_KERNEL_BASE := 0x00000000
+BOARD_KERNEL_BASE := 0x80000000
+
+# NOTE: Full kernel cmdline
 BOARD_KERNEL_CMDLINE := console=null earlycon=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=2048 loop.max_part=7 androidboot.usbcontroller=a600000.dwc3 product.version=PD1936_A_9.15.14 fingerprint.abbr=11/RP1A.200720.012 region_ver=W10 buildvariant=user androidboot.securebootkeyhash=2c0a52ffbd8db687b56f6a98d8840f46597a4dde6d9dc8d00039873ce6d74f60 androidboot.securebootkeyver=4
+
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_RAMDISK_OFFSET := 0x01000000
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
@@ -45,22 +62,29 @@ BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
 BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 BOARD_KERNEL_IMAGE_NAME := Image
-BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_KERNEL_SEPARATED_DTBO := true
-TARGET_KERNEL_CONFIG := PD1936_defconfig
-TARGET_KERNEL_SOURCE := kernel/vivo/PD1936
 
-# Kernel - prebuilt
+# If building kernel from source, set these:
+# TARGET_KERNEL_CONFIG := PD1936_defconfig
+# TARGET_KERNEL_SOURCE := kernel/vivo/PD1936
+
+# -----------------------------------------------------------------------------
+# Kernel - prebuilt option
+# -----------------------------------------------------------------------------
+# Using prebuilt kernel from device tree prebuilt/ directory
 TARGET_FORCE_PREBUILT_KERNEL := true
 ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
-TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
-BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
-BOARD_INCLUDE_DTB_IN_BOOTIMG := 
-BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
-BOARD_KERNEL_SEPARATED_DTBO := 
+  TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
+  TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
+  BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
+  # Since we're using prebuilt DTB passed via mkbootimg args, do not include separately
+  BOARD_INCLUDE_DTB_IN_BOOTIMG := false
+  BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
+  BOARD_KERNEL_SEPARATED_DTBO := false
+  # Unset kernel source/config since we use prebuilt
+  TARGET_KERNEL_CONFIG :=
+  TARGET_KERNEL_SOURCE :=
 endif
-
 
 # -----------------------------------------------------------------------------
 # Partitions
