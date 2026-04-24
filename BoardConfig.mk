@@ -21,7 +21,7 @@ TARGET_CPU_VARIANT_RUNTIME := cortex-a53
 
 # 2nd (32-bit) arch (if device boots a 32-bit userspace)
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv7-a   # use armv7-a for 32-bit
+TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a53
