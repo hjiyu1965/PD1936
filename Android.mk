@@ -10,7 +10,7 @@ LOCAL_PATH := $(call my-dir)
 ifeq ($(TARGET_DEVICE),PD1936)
 include $(call all-subdir-makefiles,$(LOCAL_PATH))
 
-# Copy prebuilt kernel dtb and dtbo to output directory
+# Copy prebuilt kernel dtb to output directory
 # This satisfies ninja dependency since all kernel components are prebuilt
 $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr:
 	@mkdir -p $(dir $@)
@@ -21,11 +21,5 @@ $(PRODUCT_OUT)/dtb.img: $(LOCAL_PATH)/prebuilt/dtb.img
 	@mkdir -p $(dir $@)
 	@cp $< $@
 	@echo "Copied prebuilt dtb.img to $@"
-
-# Copy prebuilt dtbo.img
-$(PRODUCT_OUT)/dtbo.img: $(LOCAL_PATH)/prebuilt/dtbo.img
-	@mkdir -p $(dir $@)
-	@cp $< $@
-	@echo "Copied prebuilt dtbo.img to $@"
 
 endif
