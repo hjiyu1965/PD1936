@@ -67,16 +67,14 @@ BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_KERNEL_SEPARATED_DTBO := true
 
 # If building kernel from source, set these:
-TARGET_KERNEL_CONFIG := PD1936_defconfig
-TARGET_KERNEL_SOURCE := kernel/vivo/PD1936
+# TARGET_KERNEL_CONFIG := PD1936_defconfig
+# TARGET_KERNEL_SOURCE := kernel/vivo/PD1936
 
 # -----------------------------------------------------------------------------
 # Kernel - prebuilt option
 # -----------------------------------------------------------------------------
-# Choose either to build kernel (leave TARGET_FORCE_PREBUILT_KERNEL=false) or
-# use a prebuilt kernel (set to true and provide TARGET_PREBUILT_KERNEL).
-# Using both is confusing; prefer one approach.
-TARGET_FORCE_PREBUILT_KERNEL := false
+# Using prebuilt kernel from device tree prebuilt/ directory
+TARGET_FORCE_PREBUILT_KERNEL := true
 ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
   TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
   TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
@@ -84,8 +82,9 @@ ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
   BOARD_INCLUDE_DTB_IN_BOOTIMG := false
   BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
   BOARD_KERNEL_SEPARATED_DTBO := false
-  # If you set FORCE_PREBUILT, consider unsetting TARGET_KERNEL_SOURCE and
-  # TARGET_KERNEL_CONFIG to avoid accidental rebuilds.
+  # Unset kernel source/config since we use prebuilt
+  TARGET_KERNEL_CONFIG :=
+  TARGET_KERNEL_SOURCE :=
 endif
 
 # -----------------------------------------------------------------------------
