@@ -63,7 +63,6 @@ BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
 BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 BOARD_KERNEL_IMAGE_NAME := Image
-BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_KERNEL_SEPARATED_DTBO := true
 
 # If building kernel from source, set these:
@@ -79,6 +78,7 @@ ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
   TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
   TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
   BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
+  # Since we're using prebuilt DTB passed via mkbootimg args, do not include separately
   BOARD_INCLUDE_DTB_IN_BOOTIMG := false
   BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
   BOARD_KERNEL_SEPARATED_DTBO := false
