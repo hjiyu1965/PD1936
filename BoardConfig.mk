@@ -108,11 +108,14 @@ TW_ALLOW_FLASH_RAW := true
 
 # Decrypt /data
 BOARD_SUPPRESS_SECURE_ERASE := true
+BOARD_SUPPRESS_EMMC_WIPE := true
 TW_INCLUDE_FBE_METADATA_DECRYPT := true
 TW_INCLUDE_KEYMASTER_HAL := true
 TW_USE_FSCRYPT := true
 TW_CRYPTO_FS_TYPE := f2fs
 TW_HAS_MTP := true
+TW_MTP_DEVICE := /dev/mtp_usb
+BOARD_IGNORE_EMPTY_INIT := true
 # -----------------------------------------------------------------------------
 # Verified Boot / AVB
 # -----------------------------------------------------------------------------
