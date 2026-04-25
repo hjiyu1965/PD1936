@@ -89,6 +89,8 @@ TW_EXTRA_LANGUAGES := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := hbtp_vm
 TW_USE_TOOLBOX := true
+TW_EXCLUDE_TWRPAPP := true
+TW_NO_SCREEN_BLANK := true
 
 # TWRP Features
 TW_INCLUDE_CRYPTO := true
@@ -122,6 +124,10 @@ TW_EXCLUDE_KEEP_MD5 := true
 TW_BACKUP_DISABLE_COMPRESSION := false
 TW_EXCLUDE_STORAGE := /external_sd
 TW_INCLUDE_FBEX := true
+
+# Fix reboot loop
+TW_HAS_NO_RECOVERY_PARTITION := false
+TARGET_RECOVERY_QCOM_RTC_FIX := true
 # -----------------------------------------------------------------------------
 # Verified Boot / AVB
 # -----------------------------------------------------------------------------
