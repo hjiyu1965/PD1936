@@ -107,10 +107,12 @@ TW_INCLUDE_CRYPTFS := true
 TW_ALLOW_FLASH_RAW := true
 
 # Decrypt /data
+BOARD_SUPPRESS_SECURE_ERASE := true
 TW_INCLUDE_FBE_METADATA_DECRYPT := true
 TW_INCLUDE_KEYMASTER_HAL := true
 TW_USE_FSCRYPT := true
 TW_CRYPTO_FS_TYPE := f2fs
+TW_HAS_MTP := true
 # -----------------------------------------------------------------------------
 # Verified Boot / AVB
 # -----------------------------------------------------------------------------
