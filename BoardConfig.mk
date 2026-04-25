@@ -116,6 +116,12 @@ TW_CRYPTO_FS_TYPE := f2fs
 TW_HAS_MTP := true
 TW_MTP_DEVICE := /dev/mtp_usb
 BOARD_IGNORE_EMPTY_INIT := true
+
+# Backup
+TW_EXCLUDE_KEEP_MD5 := true
+TW_BACKUP_DISABLE_COMPRESSION := false
+TW_EXCLUDE_STORAGE := /external_sd
+TW_INCLUDE_FBEX := true
 # -----------------------------------------------------------------------------
 # Verified Boot / AVB
 # -----------------------------------------------------------------------------
