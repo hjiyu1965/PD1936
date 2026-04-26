@@ -90,10 +90,10 @@ TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := hbtp_vm
 TW_USE_TOOLBOX := true
 
-# TWRP Features
-TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_CRYPTO_FBE := true
-TW_INCLUDE_CRYPTO_METADATA := true
+# TWRP Features (encryption disabled for stability)
+# TW_INCLUDE_CRYPTO := true
+# TW_INCLUDE_CRYPTO_FBE := true
+# TW_INCLUDE_CRYPTO_METADATA := true
 TW_INCLUDE_FUSE := true
 TW_INCLUDE_EXFAT := true
 TW_INCLUDE_NTFS := true
@@ -103,14 +103,14 @@ TW_INCLUDE_LOGCAT := true
 TW_INCLUDE_GREP := true
 TW_INCLUDE_SHA1SUM := true
 TW_INCLUDE_SHA256SUM := true
-TW_INCLUDE_CRYPTFS := true
+# TW_INCLUDE_CRYPTFS := true
 TW_ALLOW_FLASH_RAW := true
 
-# Decrypt /data
-TW_INCLUDE_FBE_METADATA_DECRYPT := true
-TW_INCLUDE_KEYMASTER_HAL := true
-TW_USE_FSCRYPT := true
-TW_CRYPTO_FS_TYPE := f2fs
+# Decrypt /data (all disabled)
+# TW_INCLUDE_FBE_METADATA_DECRYPT := true
+# TW_INCLUDE_KEYMASTER_HAL := true
+# TW_USE_FSCRYPT := true
+# TW_CRYPTO_FS_TYPE := f2fs
 # -----------------------------------------------------------------------------
 # Verified Boot / AVB
 # -----------------------------------------------------------------------------
