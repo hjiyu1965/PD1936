@@ -108,7 +108,7 @@ TW_INCLUDE_SHA256SUM := true
 TW_INCLUDE_CRYPTFS := true
 TW_ALLOW_FLASH_RAW := true
 
-# Decrypt /data
+# Decrypt /data - Hardware FBE / Inline Encryption (vivo specific)
 BOARD_SUPPRESS_SECURE_ERASE := true
 BOARD_SUPPRESS_EMMC_WIPE := true
 TW_INCLUDE_FBE_METADATA_DECRYPT := true
@@ -118,6 +118,11 @@ TW_CRYPTO_FS_TYPE := f2fs
 TW_HAS_MTP := true
 TW_MTP_DEVICE := /dev/mtp_usb
 BOARD_IGNORE_EMPTY_INIT := true
+# Enable hardware inline encryption support
+TW_INCLUDE_CRYPTO_FBE_HW := true
+BOARD_USES_QCOM_FBE_DECRYPTION := true
+PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/bootdevice/by-name/system
+TARGET_ENABLE_MEDIADRM_64 := true
 
 # Backup
 TW_EXCLUDE_KEEP_MD5 := true
