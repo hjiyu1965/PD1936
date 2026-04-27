@@ -121,7 +121,6 @@ BOARD_IGNORE_EMPTY_INIT := true
 # Enable hardware inline encryption support
 TW_INCLUDE_CRYPTO_FBE_HW := true
 BOARD_USES_QCOM_FBE_DECRYPTION := true
-PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/bootdevice/by-name/system
 TARGET_ENABLE_MEDIADRM_64 := true
 
 # Backup
