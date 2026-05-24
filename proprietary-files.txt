@@ -1,0 +1,13 @@
+# List of proprietary files to extract from the device
+# Generate this file by running: ./extract-files.sh <dump-directory>
+# or by manually listing blobs from your device's vendor partition.
+#
+# Format:
+#   <source-path-on-device>[:<destination-path-in-build>]
+#
+# Example:
+#   vendor/bin/qseecomd
+#   vendor/lib64/libQSEEComAPI.so
+#   vendor/lib/hw/gatekeeper.msmnile.so
+#
+# TODO: Populate this file with the actual blob list from vivo PD1936 vendor partition.
