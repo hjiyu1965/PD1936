@@ -348,6 +348,14 @@ firmware_directories /vendor/firmware_mnt/image/
 
 # This is temporary while using SD card for initial bring-up
 /dev/block/platform/soc/8804000.sdhci/by-name/frp       0600   system     system
+# Boot, Recovery, and Misc device block for Magisk
+/dev/block/bootdevice/by-name/boot       0660   root   system
+/dev/block/bootdevice/by-name/recovery   0660   root   system
+/dev/block/bootdevice/by-name/misc       0660   root   system
+/dev/block/bootdevice/by-name/system     0660   root   system
+/dev/block/bootdevice/by-name/vendor     0660   root   system
+/dev/block/bootdevice/by-name/userdata   0660   root   system
+/dev/block/bootdevice/by-name/cache      0660   root   system
 
 # Kmsg device
 /dev/kmsg                                               0620   root       system

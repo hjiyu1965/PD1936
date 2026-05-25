@@ -1,0 +1,349 @@
+﻿2026-04-27T05:59:01.8377286Z ##[group]Run rokibhasansagar/slimhub_actions@main
+2026-04-27T05:59:01.8378382Z with:
+2026-04-27T05:59:01.8379024Z ##[endgroup]
+2026-04-27T05:59:01.8480270Z ##[group]Run chmod a+x $GITHUB_ACTION_PATH/cleanup.sh
+2026-04-27T05:59:01.8481557Z [36;1mchmod a+x $GITHUB_ACTION_PATH/cleanup.sh[0m
+2026-04-27T05:59:01.8482713Z [36;1mbash $GITHUB_ACTION_PATH/cleanup.sh[0m
+2026-04-27T05:59:01.8509136Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-04-27T05:59:01.8510269Z env:
+2026-04-27T05:59:01.8510901Z   retain: 
+2026-04-27T05:59:01.8511563Z ##[endgroup]
+2026-04-27T05:59:01.8609784Z [33;1;2m
+2026-04-27T05:59:01.8611319Z   ╔══════════════════════════════════════════════════════════════╗
+2026-04-27T05:59:01.8613801Z   ║                                                              ║
+2026-04-27T05:59:01.8615148Z   ║                Github Workflow Cleaner Action                ║
+2026-04-27T05:59:01.8617051Z   ║      --------------------------------------------------      ║
+2026-04-27T05:59:01.8618469Z   ║        Please Go Through The README.md File Properly.        ║
+2026-04-27T05:59:01.8620028Z   ║     ----------------------------------------------------     ║
+2026-04-27T05:59:01.8621393Z   ║                 Visit Here & Read Carefully:                 ║
+2026-04-27T05:59:01.8622805Z   ║  https://github.com/rokibhasansagar/slimhub_actions/#readme  ║
+2026-04-27T05:59:01.8624153Z   ║                                                              ║
+2026-04-27T05:59:01.8625349Z   ╚══════════════════════════════════════════════════════════════╝
+2026-04-27T05:59:01.8626414Z 
+2026-04-27T05:59:02.8668965Z [0m::group::<{[<]}> Raw Disk Space Before Cleanup <{[>]}>
+2026-04-27T05:59:02.8765033Z Use%   Used  Avail
+2026-04-27T05:59:02.8767288Z  39% 56560M 91143M
+2026-04-27T05:59:02.8767939Z ##[endgroup]
+2026-04-27T05:59:02.8768687Z ##[group] {[+]}  Temporary Apt Cache Update
+2026-04-27T05:59:02.9570354Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-04-27T05:59:02.9957017Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-04-27T05:59:02.9996687Z Hit:6 https://packages.microsoft.com/repos/azure-cli noble InRelease
+2026-04-27T05:59:03.0026504Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2026-04-27T05:59:03.0056447Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-04-27T05:59:03.0082376Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-04-27T05:59:03.0226613Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-04-27T05:59:03.0833659Z Get:8 https://dl.google.com/linux/chrome-stable/deb stable InRelease [1825 B]
+2026-04-27T05:59:03.1895115Z Get:9 https://packages.microsoft.com/ubuntu/24.04/prod noble/main armhf Packages [11.6 kB]
+2026-04-27T05:59:03.2001010Z Get:10 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [125 kB]
+2026-04-27T05:59:03.2053785Z Get:11 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [100 kB]
+2026-04-27T05:59:03.2427046Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1919 kB]
+2026-04-27T05:59:03.2588680Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [345 kB]
+2026-04-27T05:59:03.2616091Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [178 kB]
+2026-04-27T05:59:03.2635509Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 c-n-f Metadata [17.1 kB]
+2026-04-27T05:59:03.2649863Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1685 kB]
+2026-04-27T05:59:03.2737488Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [324 kB]
+2026-04-27T05:59:03.2763593Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Components [386 kB]
+2026-04-27T05:59:03.2797959Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 c-n-f Metadata [34.5 kB]
+2026-04-27T05:59:03.2810262Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2981 kB]
+2026-04-27T05:59:03.3008795Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [697 kB]
+2026-04-27T05:59:03.3442727Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Components [212 B]
+2026-04-27T05:59:03.3457742Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [32.5 kB]
+2026-04-27T05:59:03.3474881Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [8180 B]
+2026-04-27T05:59:03.3491063Z Get:25 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
+2026-04-27T05:59:03.3516482Z Get:26 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 c-n-f Metadata [512 B]
+2026-04-27T05:59:03.3532444Z Get:27 http://azure.archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [40.6 kB]
+2026-04-27T05:59:03.3539100Z Get:28 http://azure.archive.ubuntu.com/ubuntu noble-backports/main Translation-en [9172 B]
+2026-04-27T05:59:03.3547382Z Get:29 http://azure.archive.ubuntu.com/ubuntu noble-backports/main amd64 Components [7348 B]
+2026-04-27T05:59:03.3563484Z Get:30 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [30.6 kB]
+2026-04-27T05:59:03.3591986Z Get:31 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe Translation-en [18.2 kB]
+2026-04-27T05:59:03.3607119Z Get:32 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe amd64 Components [10.6 kB]
+2026-04-27T05:59:03.3687568Z Get:33 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe amd64 c-n-f Metadata [1484 B]
+2026-04-27T05:59:03.3702913Z Get:34 http://azure.archive.ubuntu.com/ubuntu noble-backports/restricted amd64 Components [212 B]
+2026-04-27T05:59:03.3704403Z Get:35 http://azure.archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Packages [748 B]
+2026-04-27T05:59:03.4116837Z Get:36 http://azure.archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Components [212 B]
+2026-04-27T05:59:03.4148053Z Get:37 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1620 kB]
+2026-04-27T05:59:03.4221282Z Get:38 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [259 kB]
+2026-04-27T05:59:03.4247207Z Get:39 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Components [21.9 kB]
+2026-04-27T05:59:03.4263136Z Get:40 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 c-n-f Metadata [11.0 kB]
+2026-04-27T05:59:03.4271800Z Get:41 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1182 kB]
+2026-04-27T05:59:03.4336175Z Get:42 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [227 kB]
+2026-04-27T05:59:03.4358368Z Get:43 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Components [74.3 kB]
+2026-04-27T05:59:03.4377395Z Get:44 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 c-n-f Metadata [23.1 kB]
+2026-04-27T05:59:03.4399347Z Get:45 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2833 kB]
+2026-04-27T05:59:03.4473275Z Get:51 https://dl.google.com/linux/chrome-stable/deb stable/main amd64 Packages [1213 B]
+2026-04-27T05:59:03.4519719Z Get:46 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [666 kB]
+2026-04-27T05:59:03.4561815Z Get:47 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Components [212 B]
+2026-04-27T05:59:03.4572651Z Get:48 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [28.8 kB]
+2026-04-27T05:59:03.4584507Z Get:49 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [7172 B]
+2026-04-27T05:59:03.4598258Z Get:50 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse amd64 Components [208 B]
+2026-04-27T05:59:11.7382849Z Fetched 16.3 MB in 2s (8645 kB/s)
+2026-04-27T05:59:12.4976079Z Reading package lists...
+2026-04-27T05:59:12.5086703Z ##[endgroup]
+2026-04-27T05:59:12.5087599Z ##[group] {[-]}  Clearing Homebrew
+2026-04-27T05:59:12.7185105Z ==> Running in non-interactive mode because `$NONINTERACTIVE` is set.
+2026-04-27T05:59:13.9182763Z ==> /usr/bin/sudo /usr/bin/find /home/linuxbrew/.linuxbrew/bin /home/linuxbrew/.linuxbrew/etc /home/linuxbrew/.linuxbrew/include /home/linuxbrew/.linuxbrew/lib /home/linuxbrew/.linuxbrew/opt /home/linuxbrew/.linuxbrew/sbin /home/linuxbrew/.linuxbrew/share /home/linuxbrew/.linuxbrew/var /home/linuxbrew/.linuxbrew/Frameworks -depth -type d -empty -exec rmdir {} ;
+2026-04-27T05:59:13.9546126Z ##[endgroup]
+2026-04-27T05:59:13.9546694Z ##[group] {[-]}  Clearing Docker Image Caches
+2026-04-27T05:59:13.9547000Z The Following Docker Images Is Being Purged...
+2026-04-27T05:59:16.1064166Z Untagged: ghcr.io/dependabot/dependabot-updater-core:latest
+2026-04-27T05:59:16.1065284Z Untagged: ghcr.io/dependabot/dependabot-updater-core@sha256:1a26dc3fcaf95045892f4a311ffb55f1855f9a28cd07853f27322e09f9e33272
+2026-04-27T05:59:16.1066888Z Deleted: sha256:bc43b78d01f2e33da745508f52e38080dc9f08653e7d570a7fcdacfdb0704dc4
+2026-04-27T05:59:16.1067730Z Deleted: sha256:7ad5ec90f0acc9db6b873cc18964f9c0533ba5fce69630ceaafb19d034f12e84
+2026-04-27T05:59:16.1068703Z Deleted: sha256:5d6b8bf8afc3cc2421ac4d2e0ac9ad63491266556f0ac6f616dce3172ecd7a19
+2026-04-27T05:59:16.1069633Z Deleted: sha256:9e7d927a8524af85caa0d9f9afefaf1393a60aa79c39d4d36497fa239c612568
+2026-04-27T05:59:16.1070573Z Deleted: sha256:9e073c80d803c83cd181e3fc4402faad389de5cd56c71a92d760455bbc07d73a
+2026-04-27T05:59:16.1071112Z Deleted: sha256:b6f825277dedac884511186e873563a9415f2fee0ba6bc7b113d95fe7a4e1b6e
+2026-04-27T05:59:16.1072005Z Deleted: sha256:8c2dd56b2feca282cea74effd5e55bccd55ca16d5fa06dcb519d69ec36642635
+2026-04-27T05:59:16.1072932Z Deleted: sha256:98cf59850ec411c1b834c794a764a9899ab1b668655db39809cbcab4ff060c1a
+2026-04-27T05:59:16.1073726Z Deleted: sha256:2cb76996475700db654b1e5bbea4136506184b86dd48c91b189f85190509bfb0
+2026-04-27T05:59:16.1074553Z Deleted: sha256:c6086b0e61ca9ccea3d7be0ba0359f838c6c6d46e09e7171fcfd8b4b0ac16352
+2026-04-27T05:59:16.1075426Z Deleted: sha256:a9dcbdeab4860a4becf5d2d625d167811576a38a48fd889989e7b1f826f3308a
+2026-04-27T05:59:16.1098412Z Deleted: sha256:de467cabfa72392c12f9187b41b810d7f865498a25c50e476a0e715615b85be7
+2026-04-27T05:59:16.1098936Z Deleted: sha256:5e732af9e7c568c9b41ecabc76ac93a58471934d5155070dfd64a9567667fd9d
+2026-04-27T05:59:16.1793815Z Untagged: ghcr.io/github/gh-aw-mcpg:latest
+2026-04-27T05:59:16.1794760Z Untagged: ghcr.io/github/gh-aw-mcpg@sha256:44d4d8de7e6c37aaea484eba489940c52df6a0b54078ddcbc9327592d5b3c3dd
+2026-04-27T05:59:16.1795945Z Deleted: sha256:4f3a2fdcf4211bc96925f6f664d8c69f2384ccd1038a223f30afc4289ad7332a
+2026-04-27T05:59:16.1796898Z Deleted: sha256:081fbbab84acbcfd9e996b3212fb8765a721b2ecd5beeb0efa9426c6c49eb339
+2026-04-27T05:59:16.1797860Z Deleted: sha256:1b8d11a58653d75861ee150ff7150c429af82ec6d831d9b020e95436c2c4ffc3
+2026-04-27T05:59:16.1798762Z Deleted: sha256:14cdee12388578a7f712e8c2a5a95915540a840704e42daef84cad06d1e78630
+2026-04-27T05:59:16.1799718Z Deleted: sha256:6538199b8cbae3b9c39ec677f379a5f8d1cad6058c99ccc622d28f68e0f8b753
+2026-04-27T05:59:16.1800440Z Deleted: sha256:f951e18dd3f38b813b2fbff5f91f407f22d4d9c736293551c05956e0e4dccab9
+2026-04-27T05:59:16.1800977Z Deleted: sha256:353d7bf12b2cbf38077480084210b0e65fc633d387acb793c6febae74dd22230
+2026-04-27T05:59:16.1801496Z Deleted: sha256:84e5e31e54e04f72948b352568654cc1fa0b9aecb1cfc352adc2b8402f38302d
+2026-04-27T05:59:17.3390007Z Untagged: ghcr.io/github/gh-aw-firewall/agent:latest
+2026-04-27T05:59:17.3391338Z Untagged: ghcr.io/github/gh-aw-firewall/agent@sha256:9161f2415a3306a344aca34dd671ee69f122317e0a512e66dc64c94b9c508682
+2026-04-27T05:59:17.3392737Z Deleted: sha256:1e3e582066a85dc1d0dbd55719422eba244289d4c7dab9375a7b2023eaa9454e
+2026-04-27T05:59:17.3393820Z Deleted: sha256:1909b649a65290ec0bd80d5a66065e3ebbf45039831f13340600db30e928f9cc
+2026-04-27T05:59:17.3394935Z Deleted: sha256:28a8147a9c74e9882546df9acc0d82a128ebe3421db37283ff14f9e84ada98d8
+2026-04-27T05:59:17.3395899Z Deleted: sha256:145ea58feb7c8de9307b3417570e2598557cf911e85c359f590505381174c80f
+2026-04-27T05:59:17.3396723Z Deleted: sha256:1fc8d18c57b1db900aab30a8ccc62dcb91e307bad8c43d14f921ead35633cca6
+2026-04-27T05:59:17.3397522Z Deleted: sha256:4c424900ac0423fbfec72f02416b6499cab9ed9aa41421d726563f163b33db2b
+2026-04-27T05:59:17.3398307Z Deleted: sha256:ac9ddab2f1b6f9079bb8d91faeb2867eff78c8c3a73e24773bbd917925db0064
+2026-04-27T05:59:17.3399106Z Deleted: sha256:ff360a4102775e140385b783d7af7d78f2513fbd6deef39d7bac18a53c4ce48f
+2026-04-27T05:59:17.3399888Z Deleted: sha256:e342018be1129d51752860af8cd60d33749bd7a36385a5344dd7841714a7a6f2
+2026-04-27T05:59:17.3400687Z Deleted: sha256:69be8e56e1bb5c8489a4b78c196cab58a2ef606189e199568807a4a2274f475d
+2026-04-27T05:59:17.3401507Z Deleted: sha256:c409fbaee8a7bf480a00ba33a669128fc876e3dc5749cefa50d588df91f7392e
+2026-04-27T05:59:17.3402339Z Deleted: sha256:2f521dd731867586a754566a4df7bdb5eda185a1068dc5d12b325eff84099a51
+2026-04-27T05:59:17.3403161Z Deleted: sha256:e4bffdd053135a552b40ebec96556ba3249a454cb600d949988316ac1480d485
+2026-04-27T05:59:17.3404047Z Deleted: sha256:2cd84d7b826f8b6eccf8e6e6424cd502902a0bb6b4d431db75bdf31af2776ea2
+2026-04-27T05:59:17.3404946Z Deleted: sha256:d3a1508d9f9dadd961ebacf3e6b39096d63a29e37f5996064d8bd4b920bb4241
+2026-04-27T05:59:17.3405980Z Deleted: sha256:e7b073608c61976757b3a3ad13466ab2f8e271c4cbf9cc884317aba8303f5023
+2026-04-27T05:59:17.3406807Z Deleted: sha256:71c90ef31fd340400b499db05579082b995ba0bf227bb290578430f67fc117d2
+2026-04-27T05:59:17.3407669Z Deleted: sha256:351d919b2c06105efcb263b77e23bff2f166d23bcb487f5185d884bfada142f3
+2026-04-27T05:59:17.6434576Z Untagged: ghcr.io/github/gh-aw-firewall/api-proxy:latest
+2026-04-27T05:59:17.6435950Z Untagged: ghcr.io/github/gh-aw-firewall/api-proxy@sha256:6971639e381e82e45134bcd333181f456df3a52cd6f818a3e3d6de068ff91519
+2026-04-27T05:59:17.6436873Z Deleted: sha256:da031122e2876e9e28601b4ffda24a5981d2706c10ee7fe1c2058f9bb1f8e831
+2026-04-27T05:59:17.6437563Z Deleted: sha256:ce57debdd79714346fbe32d030dd452d4125ccb37f0cbc09943fba1767764ad6
+2026-04-27T05:59:17.6438209Z Deleted: sha256:10cd931928d0f31620a53dc4e1428147edef1fc442cc9b012b2d6f8883aae8d1
+2026-04-27T05:59:17.6439250Z Deleted: sha256:ad1364113cef73e08e0e2b20ea5e5c639f808b4ee9b0be50aca7c263b1b8b599
+2026-04-27T05:59:17.6439883Z Deleted: sha256:c7f6d287544a653933414840ce61d2fab4c9bed87b2f18e659fc664fecc614f0
+2026-04-27T05:59:17.6440441Z Deleted: sha256:93e4975102cbaba194dfaa6de5dc9019499f3ff808a406abf2e6e181aeadb02c
+2026-04-27T05:59:17.6441098Z Deleted: sha256:604f8c2ddf10784ba6a8cdc66dd01827060b596afea26aedb967197e94f5b51d
+2026-04-27T05:59:17.6441648Z Deleted: sha256:398f3f21252333bf78edeba1f3e2cbc9014010ecb1c31cf961b0491ba90f75c9
+2026-04-27T05:59:17.6442290Z Deleted: sha256:d3f0c87df185d2939ac76464c04318137c33a57604ed21eaa7617ffdf24fe6ff
+2026-04-27T05:59:17.6442995Z Deleted: sha256:47631d4f2fbe81ac434e2e02fd5ec3a9a97060c24f0ddb02b0456060f96c2b42
+2026-04-27T05:59:17.6443615Z Deleted: sha256:989e799e634906e94dc9a5ee2ee26fc92ad260522990f26e707861a5f52bf64e
+2026-04-27T05:59:18.2583849Z Untagged: ghcr.io/github/gh-aw-firewall/squid:latest
+2026-04-27T05:59:18.2585140Z Untagged: ghcr.io/github/gh-aw-firewall/squid@sha256:5411d903f73ee597e6a084971c2adef3eb0bd405910df3ed7bf5e3d6bd58a236
+2026-04-27T05:59:18.2586838Z Deleted: sha256:53e4356ca7b15cfe5f0440928bf80fa4104a6f4558daf81fd3690f820599cf3f
+2026-04-27T05:59:18.2587936Z Deleted: sha256:ccd8ab195661cbe8c9c0ceea97b4fa94821ee3309838bd94827f6a12ddd3b962
+2026-04-27T05:59:18.2588958Z Deleted: sha256:0b03b76941bb1f0bdd20c527cfbf4ddae28def00abded3da6abb0630ced4b236
+2026-04-27T05:59:18.2589601Z Deleted: sha256:f75e0b2c478a926c6de2439e148f47cd8d4662f32a538dea81bd40da3fd168ee
+2026-04-27T05:59:18.2590208Z Deleted: sha256:01a0aa32ba968c9ea31b1504ae9ba7e9b449b6b06f0a1793c5c58f3c4dd07380
+2026-04-27T05:59:18.2590818Z Deleted: sha256:0f7aceedbeef2527fd8b8cb81c5e0ebbb3032d42cbd0847080e679dfa6deb274
+2026-04-27T05:59:18.2591422Z Deleted: sha256:7b26b80c1cff713367db892365d8d1227498773be6690e7a39165099060acef2
+2026-04-27T05:59:18.2597234Z Deleted: sha256:e8bce0aabd687e9ee90e0bada33884f40b277196f72aac9934357472863a80ae
+2026-04-27T05:59:18.3838311Z Untagged: ghcr.io/github/github-mcp-server:latest
+2026-04-27T05:59:18.3839358Z Untagged: ghcr.io/github/github-mcp-server@sha256:a9dd39eec67f09ded51631c79641dd72acb4945c6391df47824fa2d508b5431b
+2026-04-27T05:59:18.3840441Z Deleted: sha256:5b7da589d1109592cda422730f4c7df372bbc22fbaf889f95f495765b0808e82
+2026-04-27T05:59:18.3841274Z Deleted: sha256:0f9ae5e0fe8973b13e82dfba98abdfda56d7062b88709cab1f8f254baf2f3649
+2026-04-27T05:59:18.3842103Z Deleted: sha256:3844b00e5d867b3b3810bfeb53b81e36d4ecc46847a0d8cbb20577f0ae62af40
+2026-04-27T05:59:18.3842969Z Deleted: sha256:8621c8b1fc5e2a8bd8db5ad518bb3d4dd069f3be3a961aa0fceae4d619557539
+2026-04-27T05:59:18.3843843Z Deleted: sha256:44d0cb736798a30817877c6c37ceb891f91d581279d51d962c38d0b7d3cefb1f
+2026-04-27T05:59:18.3844689Z Deleted: sha256:3e005f61e911be389b7090ab5e7dac5c293012172a91dceec6ec3cb008877589
+2026-04-27T05:59:18.3845754Z Deleted: sha256:447769e80022d633258a358a32ec185c08acf39d52ff7992a62465580862727b
+2026-04-27T05:59:18.3846581Z Deleted: sha256:7d2cd16d5223db171e85e78e005304348a2972c71f63003a0b491ed077558d11
+2026-04-27T05:59:18.3847418Z Deleted: sha256:52c4df99df6b16bf709a7d57852c4baa88cca6daddf8e1380b1cb965b246a531
+2026-04-27T05:59:18.3848301Z Deleted: sha256:d4bd505626ba298bdb5a4d594c55bbd659d6e7e53569dc80083d82a5775526b8
+2026-04-27T05:59:18.3849140Z Deleted: sha256:7c60cb27043e7c7917a896b67c0653fa29fedc90f2dce187dce8e22e9bb1d560
+2026-04-27T05:59:18.3850002Z Deleted: sha256:b8997b2eca37711a7ca830639978654ebc5a0e1f13f7e3af8f992b895f1550d3
+2026-04-27T05:59:18.3850860Z Deleted: sha256:0020b32e5a73ed88fe2de1c7889a43bdfc9541a7145fbb48ec6147dcc01da62f
+2026-04-27T05:59:18.3851701Z Deleted: sha256:bd59e7e428c9e76bc724f38578c163243152a507a5da6e0f63c0d61da952ba5b
+2026-04-27T05:59:18.3852605Z Deleted: sha256:34165fb0807042c1f8ed197fd1ea5a031ca3e27e6e3fba9fbcf49a20052d19b7
+2026-04-27T05:59:18.3853110Z Deleted: sha256:3bd325ec8c2d0894ea95758a6b235d7e2da1cb28f1cc2b76aeede98d5f8f425a
+2026-04-27T05:59:18.3853975Z Deleted: sha256:a33ba213ad26a605d904a741f67154f3904c74a43182c872c35f36b10fa005e0
+2026-04-27T05:59:18.3855492Z ##[endgroup]
+2026-04-27T06:00:12.7207867Z ##[group] {[-]}  Uninstalling and Purging apt Packages
+2026-04-27T06:00:12.7211317Z [i] List of apt Packages to be Removed:   docker-buildx-plugin docker-ce-cli docker-ce containerd.io podman buildah skopeo containers-common kubectl temurin-*-jdk adoptopenjdk-* adoptium-ca-certificates openjdk-* ant ant-optional postgresql-* libpq-dev libmysqlclient* msodbcsql* mssql-tools unixodbc-dev mysql-client* mysql-common mysql-server* php*-*sql sphinxsearch mongodb* firefox google-chrome-stable microsoft-edge-stable xvfb apache2 apache2-* nginx nginx-* php-* php7* php8* session-manager-plugin azure-cli google-cloud-cli heroku gh subversion mercurial vim vim-* dotnet* aspnetcore* mono-* mono* libmono-* libmono* monodoc* msbuild nuget ruby* rake ri g++-12 g++-14 gcc-12 gcc-14 gfortran-* clang-* libclang* llvm-* libllvm* lldb-* lld-* clang-format-* clang-tidy-* powershell r-base* r-cran* r-doc* r-recommended snapd man-db manpages libgtk-3-* ubuntu-mono *-icon-theme imagemagick imagemagick-6-common libgl1-mesa-dri firebird* hhvm 
+2026-04-27T06:00:14.0430506Z [i] Skipping Non-existing apt Packages: containers-common adoptopenjdk-* mssql-tools heroku msbuild hhvm
+2026-04-27T06:02:08.3361204Z 
+2026-04-27T06:02:08.3361929Z WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+2026-04-27T06:02:08.3362286Z 
+2026-04-27T06:02:08.5282858Z Reading package lists...
+2026-04-27T06:02:08.6796203Z Building dependency tree...
+2026-04-27T06:02:08.6800817Z Reading state information...
+2026-04-27T06:02:08.8313191Z 0 upgraded, 0 newly installed, 0 to remove and 31 not upgraded.
+2026-04-27T06:02:08.8408211Z ##[endgroup]
+2026-04-27T06:02:08.8408879Z ##[group] {[-]}  Purging Unnecessary Files and Directories
+2026-04-27T06:02:08.9790105Z Purging /home/linuxbrew
+2026-04-27T06:02:08.9843474Z Purging /usr/bin/docker-credential-ecr-login
+2026-04-27T06:02:08.9898675Z Purging /usr/local/bin/docker-compose
+2026-04-27T06:02:08.9908432Z Purging /usr/bin/docker-credential-ecr-login
+2026-04-27T06:02:08.9964501Z Purging /usr/local/bin/kind
+2026-04-27T06:02:08.9988537Z Purging /usr/local/bin/helm
+2026-04-27T06:02:09.0073035Z Purging /usr/local/bin/minikube
+2026-04-27T06:02:09.0106367Z Purging /usr/local/bin/kustomize
+2026-04-27T06:02:09.0132399Z Purging /usr/local/bin/terraform
+2026-04-27T06:02:09.0941022Z Purging /usr/local/lib/android/sdk/cmdline-tools
+2026-04-27T06:02:09.1063856Z Purging /usr/local/lib/android/sdk/build-tools
+2026-04-27T06:02:09.1130228Z Purging /usr/local/lib/android/sdk/licenses
+2026-04-27T06:02:09.1282190Z Purging /usr/local/lib/android/sdk/packages-list.txt
+2026-04-27T06:02:09.1424769Z Purging /usr/local/lib/android/sdk/platform-tools
+2026-04-27T06:02:09.3104008Z Purging /usr/local/lib/android/sdk/cmake
+2026-04-27T06:02:10.2729000Z Purging /usr/local/lib/android/sdk/ndk
+2026-04-27T06:02:10.2884516Z Purging /usr/lib/jvm/
+2026-04-27T06:02:10.3036046Z Purging /usr/local/graalvm
+2026-04-27T06:02:10.3206630Z Purging /usr/share/java/selenium-server.jar
+2026-04-27T06:02:10.3522399Z Purging /usr/share/gradle-9.4.1
+2026-04-27T06:02:10.3670388Z Purging /usr/bin/gradle
+2026-04-27T06:02:10.3846305Z Purging /usr/share/apache-maven-3.9.14
+2026-04-27T06:02:10.3898275Z Purging /usr/local/lib/android/sdk/extras
+2026-04-27T06:02:10.4003884Z Purging /usr/share/maven-repo
+2026-04-27T06:02:10.4054786Z Purging /usr/bin/mvn
+2026-04-27T06:02:10.4156398Z Purging '/usr/share/mysql*'
+2026-04-27T06:02:10.4206394Z Purging /opt/mssql-tools
+2026-04-27T06:02:10.4305805Z Purging /usr/local/sqlpackage
+2026-04-27T06:02:10.4369463Z Purging /usr/lib/firefox
+2026-04-27T06:02:10.4481832Z Purging /usr/local/share/gecko_driver
+2026-04-27T06:02:10.4526195Z Purging /usr/bin/geckodriver
+2026-04-27T06:02:10.4636374Z Purging /usr/bin/google-chrome
+2026-04-27T06:02:10.4677069Z Purging /usr/local/share/chromedriver-linux64
+2026-04-27T06:02:10.4785295Z Purging /usr/bin/chromedriver
+2026-04-27T06:02:10.4966384Z Purging /usr/bin/chromium
+2026-04-27T06:02:10.5017824Z Purging /usr/local/share/chromium
+2026-04-27T06:02:10.5088877Z Purging /usr/bin/chromium-browser
+2026-04-27T06:02:10.5171429Z Purging /usr/local/share/edge_driver
+2026-04-27T06:02:10.5246378Z Purging /usr/bin/msedgedriver
+2026-04-27T06:02:10.5318707Z Purging /usr/share/php
+2026-04-27T06:02:10.5391513Z Purging /etc/php
+2026-04-27T06:02:10.5479823Z Purging /usr/local/bin/phpunit
+2026-04-27T06:02:10.5542654Z Purging /usr/bin/composer
+2026-04-27T06:02:10.5628755Z Purging /home/runner/.config/composer
+2026-04-27T06:02:10.5716513Z Purging /etc/skel/.composer
+2026-04-27T06:02:10.5778161Z Purging /etc/.composer
+2026-04-27T06:02:10.5860794Z Purging /usr/local/bin/aliyun
+2026-04-27T06:02:10.5917762Z Purging /usr/local/bin/aws
+2026-04-27T06:02:10.6007080Z Purging /usr/local/bin/aws_completer
+2026-04-27T06:02:10.6137148Z Purging /usr/local/aws
+2026-04-27T06:02:12.0524017Z Purging /usr/local/aws-cli
+2026-04-27T06:02:12.0665459Z Purging /usr/local/bin/azcopy
+2026-04-27T06:02:12.0805943Z Purging /usr/local/bin/azcopy10
+2026-04-27T06:02:12.1815885Z Purging /usr/share/az_14.6.0
+2026-04-27T06:02:12.5869297Z Purging /opt/az
+2026-04-27T06:02:12.6041121Z Purging /usr/bin/az
+2026-04-27T06:02:12.6181293Z Purging /usr/share/google-cloud-sdk
+2026-04-27T06:02:12.6318799Z Purging /usr/lib/google-cloud-sdk
+2026-04-27T06:02:12.6465286Z Purging /usr/local/bin/bicep
+2026-04-27T06:02:12.6610539Z Purging /usr/local/bin/oc
+2026-04-27T06:02:12.6777655Z Purging /usr/local/bin/oras
+2026-04-27T06:02:12.6907431Z Purging /usr/local/lib/heroku
+2026-04-27T06:02:12.7046719Z Purging /usr/local/bin/hub
+2026-04-27T06:02:13.7436646Z Purging /usr/local/aws-sam-cli
+2026-04-27T06:02:13.7828049Z Purging /home/runner/.dotnet
+2026-04-27T06:02:13.8715931Z Purging /etc/skel/.dotnet/tools
+2026-04-27T06:02:13.8931063Z Purging /etc/.dotnet/tools
+2026-04-27T06:02:14.2257880Z Purging /usr/share/dotnet
+2026-04-27T06:02:14.2422359Z Purging /usr/local/bin/vcpkg
+2026-04-27T06:02:14.2555132Z Purging /usr/share/ri
+2026-04-27T06:02:16.6031388Z Purging /usr/local/n
+2026-04-27T06:02:16.6188312Z Purging /usr/local/bin/n
+2026-04-27T06:02:16.6329861Z Purging /usr/local/lib/node_modules
+2026-04-27T06:02:16.7233233Z Purging /etc/skel/.nvm
+2026-04-27T06:02:16.7876831Z Purging /home/runner/.nvm
+2026-04-27T06:02:17.0000543Z Purging /opt/pipx
+2026-04-27T06:02:17.0151516Z Purging /opt/pipx_bin
+2026-04-27T06:02:18.0520816Z Purging /usr/local/share/vcpkg
+2026-04-27T06:02:18.0712093Z Purging /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk
+2026-04-27T06:02:19.2379730Z Purging /opt/hostedtoolcache/PyPy
+2026-04-27T06:02:19.7176669Z Purging /opt/hostedtoolcache/CodeQL
+2026-04-27T06:02:20.9707904Z Purging /opt/hostedtoolcache/Ruby
+2026-04-27T06:02:23.0996693Z Purging /usr/local/lib/android/sdk/platforms
+2026-04-27T06:02:23.1008474Z Purging /usr/local/lib/android
+2026-04-27T06:02:23.1179691Z Purging '/usr/lib/llvm-*'
+2026-04-27T06:02:23.1301795Z Purging /usr/local/bin/ccmake
+2026-04-27T06:02:23.1437995Z Purging /usr/local/bin/cmake
+2026-04-27T06:02:23.1575464Z Purging /usr/local/bin/cmake-gui
+2026-04-27T06:02:23.1720146Z Purging /usr/local/bin/cpack
+2026-04-27T06:02:23.1856659Z Purging /usr/local/bin/ctest
+2026-04-27T06:02:23.2370980Z Purging /opt/hostedtoolcache/Python
+2026-04-27T06:02:23.2490302Z Purging '/usr/local/*cmake*'
+2026-04-27T06:02:23.2603662Z Purging /usr/local/bin/ccmake
+2026-04-27T06:02:23.2715949Z Purging /usr/local/bin/cmake
+2026-04-27T06:02:23.2827417Z Purging /usr/local/bin/cmake-gui
+2026-04-27T06:02:23.5659621Z Purging /usr/local/share/cmake-3.31
+2026-04-27T06:02:23.5786961Z Purging /usr/local/share/cmake-3.31
+2026-04-27T06:02:23.5904883Z Purging /opt/microsoft/powershell
+2026-04-27T06:02:23.6963454Z Purging /usr/local/doc/cmake
+2026-04-27T06:02:23.7098113Z Purging /usr/share/rust
+2026-04-27T06:02:23.7219336Z Purging /home/runner/.cargo
+2026-04-27T06:02:23.7249573Z Purging /usr/local/share/powershell
+2026-04-27T06:02:23.7456608Z Purging /home/runner/.rustup
+2026-04-27T06:02:23.7588552Z Purging /etc/skel/.cargo
+2026-04-27T06:02:23.7724230Z Purging /etc/.rustup
+2026-04-27T06:02:23.7844214Z Purging /etc/.cargo
+2026-04-27T06:02:23.7968530Z Purging /usr/local/bin/stack
+2026-04-27T06:02:23.7997310Z Purging /etc/skel/.rustup
+2026-04-27T06:02:23.8098282Z Purging /home/runner/.ghcup
+2026-04-27T06:02:23.8129103Z Purging /usr/local/.ghcup
+2026-04-27T06:02:23.8258483Z Purging /usr/share/kotlinc
+2026-04-27T06:02:23.8260759Z Purging /usr/bin/kotlin
+2026-04-27T06:02:23.8393584Z Purging /usr/bin/kotlinc
+2026-04-27T06:02:23.8427673Z Purging /usr/bin/kotlinc-js
+2026-04-27T06:02:23.8534952Z Purging /usr/bin/kotlinc-jvm
+2026-04-27T06:02:23.8647126Z Purging /usr/bin/julia
+2026-04-27T06:02:23.9400579Z Purging /usr/share/swift
+2026-04-27T06:02:23.9540148Z Purging /usr/local/bin/swift
+2026-04-27T06:02:23.9655043Z Purging /usr/local/bin/swiftc
+2026-04-27T06:02:23.9774062Z Purging /var/cache/snapd
+2026-04-27T06:02:23.9887993Z Purging /home/runner/snap
+2026-04-27T06:02:24.0005832Z Purging '/usr/share/firebird*'
+2026-04-27T06:02:24.0118788Z Purging /usr/share/sbt
+2026-04-27T06:02:24.0230992Z Purging /usr/bin/sbt
+2026-04-27T06:02:24.0344035Z Purging '/usr/local/share/phantomjs*'
+2026-04-27T06:02:24.0468739Z Purging /usr/local/bin/phantomjs
+2026-04-27T06:02:24.0602625Z Purging /usr/local/bin/packer
+2026-04-27T06:02:24.0716186Z Purging /usr/local/lib/lein
+2026-04-27T06:02:24.0827708Z Purging /usr/local/bin/lein
+2026-04-27T06:02:24.0989478Z Purging /usr/local/bin/pulumi
+2026-04-27T06:02:24.1115016Z Purging /usr/local/bin/pulumi-language-bun
+2026-04-27T06:02:24.1226648Z Purging /usr/local/bin/pulumi-language-dotnet
+2026-04-27T06:02:24.1366556Z Purging /usr/local/bin/pulumi-language-go
+2026-04-27T06:02:24.1476917Z Purging /usr/local/bin/pulumi-language-java
+2026-04-27T06:02:24.1584704Z Purging /usr/local/bin/pulumi-language-nodejs
+2026-04-27T06:02:24.1694495Z Purging /usr/local/bin/pulumi-language-python
+2026-04-27T06:02:24.1805160Z Purging /usr/local/bin/pulumi-language-python-exec
+2026-04-27T06:02:24.1918480Z Purging /usr/local/bin/pulumi-language-yaml
+2026-04-27T06:02:24.2039686Z Purging /usr/local/bin/pulumi-resource-pulumi-nodejs
+2026-04-27T06:02:24.2154465Z Purging /usr/local/bin/pulumi-resource-pulumi-python
+2026-04-27T06:02:24.2264340Z Purging /usr/local/bin/pulumi-watch
+2026-04-27T06:02:25.4151806Z Purging /usr/share/miniconda
+2026-04-27T06:02:25.4302071Z Purging /usr/bin/conda
+2026-04-27T06:02:26.0090983Z Purging /usr/local/julia1.12.6
+2026-04-27T06:02:29.0017397Z Purging /opt/hostedtoolcache/node
+2026-04-27T06:02:33.0162136Z Purging /opt/hostedtoolcache/go
+2026-04-27T06:02:33.4294830Z ##[endgroup]
+2026-04-27T06:02:33.4295785Z ##[group] {[-]}  Clearing Journal Logs
+2026-04-27T06:02:33.6289926Z Vacuuming done, freed 0B of archived journals from /var/log/journal.
+2026-04-27T06:02:33.6290433Z Vacuuming done, freed 0B of archived journals from /run/log/journal.
+2026-04-27T06:02:33.6297221Z Deleted archived journal /var/log/journal/96e66a7085dc477da4cf9f1848af3585/user-1000@2875dc3cc6bc423e9d3815effb0bbfe3-0000000000003aeb-00064f5fee840237.journal (3.5M).
+2026-04-27T06:02:33.6303144Z Deleted archived journal /var/log/journal/96e66a7085dc477da4cf9f1848af3585/system@2875dc3cc6bc423e9d3815effb0bbfe3-0000000000003aef-00064f5ff06c2d4e.journal (3.8M).
+2026-04-27T06:02:33.6308709Z Deleted archived journal /var/log/journal/96e66a7085dc477da4cf9f1848af3585/user-1001@2875dc3cc6bc423e9d3815effb0bbfe3-0000000000003b4b-00064f5ff06ef275.journal (3.5M).
+2026-04-27T06:02:33.6316200Z Deleted archived journal /var/log/journal/96e66a7085dc477da4cf9f1848af3585/system@5e79044099344354b87d6dad6266932d-0000000000003c4b-0006506ac2fdd308.journal (4.6M).
+2026-04-27T06:02:33.6391575Z Deleted archived journal /var/log/journal/96e66a7085dc477da4cf9f1848af3585/user-1001@5e79044099344354b87d6dad6266932d-000000000000454a-0006506ac39c89c1.journal (3.9M).
+2026-04-27T06:02:33.6400121Z Deleted archived journal /var/log/journal/96e66a7085dc477da4cf9f1848af3585/system@5e79044099344354b87d6dad6266932d-000000000000454b-0006506ac39e4d7b.journal (4.0M).
+2026-04-27T06:02:33.6401837Z Vacuuming done, freed 23.6M of archived journals from /var/log/journal/96e66a7085dc477da4cf9f1848af3585.
+2026-04-27T06:02:33.8496133Z ##[endgroup]
+2026-04-27T06:02:33.8497379Z ##[group]<{[>]}> Free Disk Space After Cleanup <{[<]}>
+2026-04-27T06:02:33.9206481Z Use%  Used   Avail
+2026-04-27T06:02:33.9206887Z   6% 8244M 139459M
+2026-04-27T06:02:33.9207618Z ##[endgroup]

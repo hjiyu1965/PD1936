@@ -1,0 +1,9 @@
+﻿2026-04-27T06:08:17.6314036Z ##[group]Run haya14busa/action-cond@v1
+2026-04-27T06:08:17.6314473Z with:
+2026-04-27T06:08:17.6314723Z   cond: true
+2026-04-27T06:08:17.6314980Z   if_true: twrp
+2026-04-27T06:08:17.6315273Z   if_false: omni
+2026-04-27T06:08:17.6315499Z env:
+2026-04-27T06:08:17.6316062Z   JAVA_HOME: /opt/hostedtoolcache/Java_Zulu_jdk/11.0.31-11/x64
+2026-04-27T06:08:17.6316648Z   JAVA_HOME_11_X64: /opt/hostedtoolcache/Java_Zulu_jdk/11.0.31-11/x64
+2026-04-27T06:08:17.6317142Z ##[endgroup]

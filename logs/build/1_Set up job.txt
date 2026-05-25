@@ -1,0 +1,36 @@
+﻿2026-04-27T05:58:58.3163952Z Current runner version: '2.334.0'
+2026-04-27T05:58:58.3187774Z ##[group]Runner Image Provisioner
+2026-04-27T05:58:58.3188574Z Hosted Compute Agent
+2026-04-27T05:58:58.3189140Z Version: 20260213.493
+2026-04-27T05:58:58.3189749Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+2026-04-27T05:58:58.3190476Z Build Date: 2026-02-13T00:28:41Z
+2026-04-27T05:58:58.3191127Z Worker ID: {e3738c8f-a58d-4986-9238-319bc696b1f6}
+2026-04-27T05:58:58.3191831Z Azure Region: northcentralus
+2026-04-27T05:58:58.3192373Z ##[endgroup]
+2026-04-27T05:58:58.3193785Z ##[group]Operating System
+2026-04-27T05:58:58.3194380Z Ubuntu
+2026-04-27T05:58:58.3194839Z 24.04.4
+2026-04-27T05:58:58.3195269Z LTS
+2026-04-27T05:58:58.3195993Z ##[endgroup]
+2026-04-27T05:58:58.3196447Z ##[group]Runner Image
+2026-04-27T05:58:58.3196964Z Image: ubuntu-24.04
+2026-04-27T05:58:58.3197540Z Version: 20260413.86.1
+2026-04-27T05:58:58.3198478Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260413.86/images/ubuntu/Ubuntu2404-Readme.md
+2026-04-27T05:58:58.3200157Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260413.86
+2026-04-27T05:58:58.3201053Z ##[endgroup]
+2026-04-27T05:58:58.3202060Z ##[group]GITHUB_TOKEN Permissions
+2026-04-27T05:58:58.3203801Z Contents: write
+2026-04-27T05:58:58.3204350Z Metadata: read
+2026-04-27T05:58:58.3204933Z ##[endgroup]
+2026-04-27T05:58:58.3207246Z Secret source: Actions
+2026-04-27T05:58:58.3207960Z Prepare workflow directory
+2026-04-27T05:58:58.3550666Z Prepare all required actions
+2026-04-27T05:58:58.3587525Z Getting action download info
+2026-04-27T05:58:58.8310215Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-04-27T05:58:58.9524387Z Download action repository 'rokibhasansagar/slimhub_actions@main' (SHA:c2a6e4317d3de2b623ac7395b05e9d2149e8289b)
+2026-04-27T05:58:59.2724291Z Download action repository 'actions/setup-java@v4' (SHA:c1e323688fd81a25caa38c78aa6df2d33d3e20d9)
+2026-04-27T05:58:59.7920780Z Download action repository 'webfactory/ssh-agent@v0.9.0' (SHA:dc588b651fe13675774614f8e6a936a468676387)
+2026-04-27T05:59:00.0874014Z Download action repository 'haya14busa/action-cond@v1' (SHA:94f77f7a80cd666cb3155084e428254fea4281fd)
+2026-04-27T05:59:00.4537398Z Download action repository 'pierotofy/set-swap-space@master' (SHA:fc79b3f67fa8a838184ce84a674ca12238d2c761)
+2026-04-27T05:59:00.6852106Z Download action repository 'softprops/action-gh-release@v2' (SHA:3bb12739c298aeb8a4eeaf626c5b8d85266b0e65)
+2026-04-27T05:59:01.1731490Z Complete job name: build
