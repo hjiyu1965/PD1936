@@ -1,8 +1,0 @@
-﻿2026-04-27T06:08:15.1011917Z ##[group]Run git clone https://github.com/hjiyu1965/PD1936/ -b twrp-11 ./device/vivo/PD1936
-2026-04-27T06:08:15.1012624Z [36;1mgit clone https://github.com/hjiyu1965/PD1936/ -b twrp-11 ./device/vivo/PD1936[0m
-2026-04-27T06:08:15.1133116Z shell: /usr/bin/bash -e {0}
-2026-04-27T06:08:15.1133346Z env:
-2026-04-27T06:08:15.1133584Z   JAVA_HOME: /opt/hostedtoolcache/Java_Zulu_jdk/11.0.31-11/x64
-2026-04-27T06:08:15.1133982Z   JAVA_HOME_11_X64: /opt/hostedtoolcache/Java_Zulu_jdk/11.0.31-11/x64
-2026-04-27T06:08:15.1134289Z ##[endgroup]
-2026-04-27T06:08:15.1184942Z Cloning into './device/vivo/PD1936'...

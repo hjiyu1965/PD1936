@@ -1,8 +1,0 @@
-﻿2026-04-27T06:03:50.9160612Z ##[group]Run repo sync -j$(nproc --all) --force-sync
-2026-04-27T06:03:50.9161012Z [36;1mrepo sync -j$(nproc --all) --force-sync[0m
-2026-04-27T06:03:50.9176176Z shell: /usr/bin/bash -e {0}
-2026-04-27T06:03:50.9176393Z env:
-2026-04-27T06:03:50.9176638Z   JAVA_HOME: /opt/hostedtoolcache/Java_Zulu_jdk/11.0.31-11/x64
-2026-04-27T06:03:50.9177279Z   JAVA_HOME_11_X64: /opt/hostedtoolcache/Java_Zulu_jdk/11.0.31-11/x64
-2026-04-27T06:03:50.9177719Z ##[endgroup]
-2026-04-27T06:08:15.0574642Z repo sync has finished successfully.
