@@ -3,6 +3,7 @@ import /init.recovery.svc.rc
 import /init.recovery.platform.rc
 import /init.recovery.touch.rc
 import /init.recovery.wifi.rc
+# import /init.recovery.usb.rc  (已禁用: 与本文件USB配置冲突导致无法启动)
 
 on early-init
     # Set init and its forked children's oom_adj.
@@ -17,7 +18,7 @@ on early-init
 
     start ueventd
 
-    setprop sys.usb.configfs 0
+    setprop sys.usb.configfs 1
 
     setprop ro.boot.recovery_mode 1
 
@@ -219,6 +220,22 @@ on property:sys.usb.config=fastboot && property:sys.usb.ffs.ready=1 && property:
     write /config/usb_gadget/g1/idProduct 0x4EE0
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "fastboot"
     symlink /config/usb_gadget/g1/functions/ffs.fastboot /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=mtp,adb && property:sys.usb.ffs.ready=1 && property:sys.usb.configfs=1
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp_adb"
+    rm /config/usb_gadget/g1/configs/b.1/f1
+    rm /config/usb_gadget/g1/configs/b.1/f2
+    rm /config/usb_gadget/g1/configs/b.1/f3
+    rm /config/usb_gadget/g1/configs/b.1/f4
+    rm /config/usb_gadget/g1/configs/b.1/f5
+    write /config/usb_gadget/g1/idVendor 0x05C6
+    write /config/usb_gadget/g1/idProduct 0x9039
+    mkdir /config/usb_gadget/g1/functions/mtp.gs0 2>/dev/null || true
+    symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
+    start adbd
     write /config/usb_gadget/g1/UDC ${sys.usb.controller}
     setprop sys.usb.state ${sys.usb.config}
 
