@@ -15,7 +15,6 @@ on property:recovery.service=1
     start guardianangle
     setprop recovery.state.services.ready 1
 on post-fs-data
-    exec u:r:recovery:s0 root root -- /system/bin/auto_mount_data.sh
     exec u:r:recovery:s0 root root -- /system/bin/clear_bcb.sh
 on property:vts_app_recovery.status=run
     start vts_app_recovery
