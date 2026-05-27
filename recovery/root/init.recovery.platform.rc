@@ -1,13 +1,16 @@
 on early-boot
     start qseecomd
     start cryptfshw-1-0
+
 on post-fs-data
     exec u:r:recovery:s0 root root -- /system/bin/clear_bcb.sh
 
-
 on boot
+    setprop recovery.service 1
 
-# just boot in fastboot mode, fastbootd service need vendor.boot-hal-1-0 & health-hal-2-0
+on property:recovery.state.services.ready=1
+    start vivofbe_decrypt
+
 on property:recovery.fastboot_mode=1
     start vendor.boot-hal-1-0
     start health-hal-2-0
@@ -94,3 +97,10 @@ service vts_app_recovery /system/bin/vts_app_recovery  --update
   disabled
   seclabel u:r:vts_app:s0
   oneshot
+
+service vivofbe_decrypt /system/bin/vivofbe
+    disabled
+    user root
+    group root
+    seclabel u:r:recovery:s0
+    oneshot

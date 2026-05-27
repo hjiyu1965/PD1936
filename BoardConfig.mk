@@ -118,10 +118,36 @@ TW_CRYPTO_FS_TYPE := f2fs
 TW_HAS_MTP := true
 TW_MTP_DEVICE := /dev/mtp_usb
 BOARD_IGNORE_EMPTY_INIT := true
-# Enable hardware inline encryption support
 TW_INCLUDE_CRYPTO_FBE_HW := true
 BOARD_USES_QCOM_FBE_DECRYPTION := true
 TARGET_ENABLE_MEDIADRM_64 := true
+
+# Vivo-specific FBE decryption via vivofbe
+TW_CUSTOM_CRYPTO_VIVO := true
+TW_INCLUDE_VIVOFBE := true
+TW_CRYPTO_USE_VIVOFBE := true
+
+# Include vivo decryption binaries in recovery
+TARGET_RECOVERY_DEVICE_MODULES += \
+    vivofbe \
+    guardianangle \
+    wait_for_keymaster \
+    keystore \
+    keystore_auth \
+    vts_app_recovery \
+    libGuardianAngleClient \
+    libGuardianAngleService \
+    libGuardianAngleServiceImpl \
+    libvivocryptfs \
+    libvivofscrypt \
+    libvivogatekeeper \
+    libcryptfs_hw \
+    libkeymasterprovision \
+    libqtikeymaster4 \
+    libspcom \
+    libqrtr \
+    libqsocket \
+    libion
 
 # Backup
 TW_EXCLUDE_KEEP_MD5 := true
