@@ -147,7 +147,8 @@ TARGET_RECOVERY_DEVICE_MODULES += \
     libspcom \
     libqrtr \
     libqsocket \
-    libion
+    libion \
+    libsqlite
 
 # Backup
 TW_EXCLUDE_KEEP_MD5 := true

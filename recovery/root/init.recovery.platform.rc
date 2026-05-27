@@ -8,9 +8,6 @@ on post-fs-data
 on boot
     setprop recovery.service 1
 
-on property:recovery.state.services.ready=1
-    start vivofbe_decrypt
-
 on property:recovery.fastboot_mode=1
     start vendor.boot-hal-1-0
     start health-hal-2-0
@@ -97,10 +94,3 @@ service vts_app_recovery /system/bin/vts_app_recovery  --update
   disabled
   seclabel u:r:vts_app:s0
   oneshot
-
-service vivofbe_decrypt /system/bin/vivofbe
-    disabled
-    user root
-    group root
-    seclabel u:r:recovery:s0
-    oneshot
