@@ -1,62 +1,21 @@
-# TWRP recovery fstab for Qualcomm device
-# Converted from stock recovery.fstab
+# Vendor variant of recovery.fstab — with backup=1 and flashimg=1 flags on all partitions.
 
-# system
-/system              ext4    /dev/block/bootdevice/by-name/system                flags=display="System";backup=1;flashimg                                ro,barrier=1,discard
-
-# vendor
-/vendor              ext4    /dev/block/bootdevice/by-name/vendor                flags=display="Vendor";backup=1                                          ro,barrier=1
-
-# metadata
-/metadata            ext4    /dev/block/by-name/metadata                         flags=display="Metadata";backup=1;canbewiped;wipeingui                   noatime,nosuid,nodev,discard
-
-# data (FBE with inline encryption)
-/data                f2fs    /dev/block/bootdevice/by-name/userdata              flags=display="Data";backup=1;encryptable=footer;fileencryption=ice;wrappedkey;length=-16384;wipeingui;flashimg  noatime,nosuid,nodev,discard,reserve_root=32768,resgid=1065,fsync_mode=nobarrier,inlinecrypt
-
-# cache
-/cache               ext4    /dev/block/bootdevice/by-name/cache                 flags=display="Cache";backup=1;wipeingui                                  noatime,nosuid,nodev,barrier=1
-
-# oem
-/oem                 ext4    /dev/block/bootdevice/by-name/oem                   flags=display="oem";backup=1                                                ro,barrier=1,discard
-
-# modem firmware
-/vendor/firmware_mnt vfat    /dev/block/bootdevice/by-name/modem                 flags=display="Modem";backup=1;flashimg                                   ro,shortname=lower,uid=0,gid=1000,dmask=227,fmask=337,context=u:object_r:firmware_file:s0
-
-# dsp
-/vendor/dsp          ext4    /dev/block/bootdevice/by-name/dsp                   flags=display="DSP";backup=1                                               ro,nosuid,nodev,barrier=1
-
-# persist
-/persist             ext4    /dev/block/bootdevice/by-name/persist               flags=display="Persist";backup=1;wipeingui                                noatime,nosuid,nodev,barrier=1
-
-# bluetooth firmware
-/vendor/bt_firmware  vfat    /dev/block/bootdevice/by-name/bluetooth             flags=display="Bluetooth Firmware";backup=1;flashimg                      ro,shortname=lower,uid=1002,gid=3002,dmask=227,fmask=337,context=u:object_r:bt_firmware_file:s0
-
-# boot
-/boot                emmc    /dev/block/bootdevice/by-name/boot                  flags=display="Boot";backup=1;flashimg
-
-# recovery
-/recovery            emmc    /dev/block/bootdevice/by-name/recovery              flags=display="Recovery";backup=1;flashimg
-
-# misc (needed by update_engine to detect boot device)
-/misc                emmc    /dev/block/bootdevice/by-name/misc                  flags=display="Misc"
-
-# vbmeta
-/vbmeta              emmc    /dev/block/bootdevice/by-name/vbmeta                flags=display="Vbmeta";backup=1;flashimg
-
-# dtbo
-/dtbo                emmc    /dev/block/bootdevice/by-name/dtbo                  flags=display="Dtbo";backup=1;flashimg
-
-# external SD card (SDHCI)
-/external_sd         vfat    /devices/platform/soc/8804000.sdhci/mmc_host*       flags=display="Micro SD card";removable;storage;wipeingui
-
-# external SD card (UFS card slot, may coexist)
-/external_sd         vfat    /devices/platform/soc/1da4000.ufshc_card/host*      flags=display="Micro SD card";removable;storage;wipeingui
-
-# USB OTG
-/usb_otg             vfat    /devices/platform/soc/*.ssusb/*.dwc3/xhci-hcd.*.auto*  flags=display="USB OTG";removable;storage;wipeingui
-
-# alternative USB OTG block device
-/usb_otg             vfat    /dev/block/sdg1                                     flags=display="USB OTG";removable;storage;wipeingui                       nosuid,nodev,barrier=1,data=ordered,nodelalloc
-
-# alternative external SD block device
-/external_sd         vfat    /dev/block/mmcblk1p1                                flags=display="Micro SD card";removable;storage;wipeingui                 nosuid,nodev,barrier=1,data=ordered,nodelalloc
+/system          ext4    /dev/block/bootdevice/by-name/system       flags=display=system;backup=1;flashimg=1
+/vendor          ext4    /dev/block/bootdevice/by-name/vendor       flags=display=vendor;backup=1;flashimg=1
+/metadata        ext4    /dev/block/by-name/metadata               flags=display=metadata;backup=1;flashimg=1
+/data            f2fs    /dev/block/bootdevice/by-name/userdata     flags=display=userdata;backup=1;flashimg=1
+/cache           ext4    /dev/block/bootdevice/by-name/cache        flags=display=cache;backup=1;flashimg=1
+/oem             ext4    /dev/block/bootdevice/by-name/oem          flags=display=oem;backup=1;flashimg=1
+/storage/sdcard1 vfat    /dev/block/mmcblk1p1                       flags=display=sdcard;backup=1;flashimg=1
+/vendor/firmware_mnt vfat /dev/block/bootdevice/by-name/modem       flags=display=modem;backup=1;flashimg=1
+/vendor/dsp      ext4    /dev/block/bootdevice/by-name/dsp          flags=display=dsp;backup=1;flashimg=1
+/mnt/vendor/persist ext4 /dev/block/bootdevice/by-name/persist      flags=display=persist;backup=1;flashimg=1
+/vendor/bt_firmware vfat /dev/block/bootdevice/by-name/bluetooth     flags=display=bluetooth;backup=1;flashimg=1
+/misc            emmc    /dev/block/bootdevice/by-name/misc          flags=display=misc;backup=1;flashimg=1
+/boot            emmc    /dev/block/bootdevice/by-name/boot          flags=display=boot;backup=1;flashimg=1
+/recovery        emmc    /dev/block/bootdevice/by-name/recovery      flags=display=recovery;backup=1;flashimg=1
+/vbmeta          emmc    /dev/block/bootdevice/by-name/vbmeta        flags=display=vbmeta;backup=1;flashimg=1
+/dtbo            emmc    /dev/block/bootdevice/by-name/dtbo          flags=display=dtbo;backup=1;flashimg=1
+/storage/usbotg  vfat    /dev/block/sdg1                             flags=display=usbotg;backup=1;flashimg=1
+/otg             vfat    /dev/block/sdg1                             flags=display=otg;backup=1;flashimg=1
+/sdcard          vfat    /dev/block/mmcblk1p1                        flags=display=sdcard;backup=1;flashimg=1

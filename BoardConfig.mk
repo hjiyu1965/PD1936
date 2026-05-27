@@ -148,7 +148,8 @@ TARGET_RECOVERY_DEVICE_MODULES += \
     libqrtr \
     libqsocket \
     libion \
-    libsqlite
+    libsqlite \
+    libandroidicu
 
 # Backup
 TW_EXCLUDE_KEEP_MD5 := true
