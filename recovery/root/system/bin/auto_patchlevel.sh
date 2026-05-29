@@ -10,7 +10,10 @@ log_info() {
     echo "$LOG_TAG $1" >&2
 }
 
-log_info "Searching for security patch level..."
+log_info "Starting auto patch level detection..."
+
+# Note: Security patch levels are now set directly in init.recovery.qcom.rc
+# This script is kept for logging and future enhancements
 
 PATCH_LEVEL=""
 
@@ -30,7 +33,7 @@ if [ -z "$PATCH_LEVEL" ]; then
         /dev/block/mapper/system; do
         if [ -b "$sys_dev" ]; then
             log_info "Searching $sys_dev..."
-            PATCH_LEVEL=$(dd if="$sys_dev" bs=1M count=50 2>/dev/null | strings | grep -a "ro.build.version.security_patch=" | head -1 | cut -d'=' -f2)
+            PATCH_LEVEL=$(dd if="$sys_dev" bs=1M count=100 2>/dev/null | strings | grep -a "ro.build.version.security_patch=" | head -1 | cut -d'=' -f2)
             if [ -n "$PATCH_LEVEL" ]; then
                 log_info "Found in $sys_dev: $PATCH_LEVEL"
                 break
@@ -44,8 +47,8 @@ if [ -z "$PATCH_LEVEL" ]; then
     SUPER_DEV="/dev/block/bootdevice/by-name/super"
     if [ -b "$SUPER_DEV" ]; then
         log_info "Searching super partition..."
-        for skip in 0 50 100 150; do
-            PATCH_LEVEL=$(dd if="$SUPER_DEV" bs=1M skip=$skip count=50 2>/dev/null | strings | grep -a "ro.build.version.security_patch=" | head -1 | cut -d'=' -f2)
+        for skip in 0 50 100 150 200; do
+            PATCH_LEVEL=$(dd if="$SUPER_DEV" bs=1M skip=$skip count=100 2>/dev/null | strings | grep -a "ro.build.version.security_patch=" | head -1 | cut -d'=' -f2)
             if [ -n "$PATCH_LEVEL" ]; then
                 log_info "Found in super (offset ${skip}MB): $PATCH_LEVEL"
                 break
@@ -54,36 +57,12 @@ if [ -z "$PATCH_LEVEL" ]; then
     fi
 fi
 
-# Apply the patch level
 if [ -n "$PATCH_LEVEL" ]; then
-    log_info "Setting security patch level to: $PATCH_LEVEL"
-    /system/bin/resetprop ro.build.version.security_patch "$PATCH_LEVEL"
-    /system/bin/resetprop ro.system.build.version.security_patch "$PATCH_LEVEL"
-    log_info "Security patch level set successfully"
+    log_info "Detected security patch level: $PATCH_LEVEL"
+    log_info "Note: Values are set in init.recovery.qcom.rc"
 else
-    log_info "WARNING: Could not detect security patch level, using default"
-fi
-
-# Also detect SDK version from system
-SDK_VERSION=""
-if [ -f /system_root/system/build.prop ]; then
-    SDK_VERSION=$(grep -a "ro.build.version.sdk=" /system_root/system/build.prop 2>/dev/null | head -1 | cut -d'=' -f2)
-fi
-
-if [ -z "$SDK_VERSION" ]; then
-    for sys_dev in /dev/block/bootdevice/by-name/system /dev/block/mapper/system_a /dev/block/mapper/system; do
-        if [ -b "$sys_dev" ]; then
-            SDK_VERSION=$(dd if="$sys_dev" bs=1M count=50 2>/dev/null | strings | grep -a "ro.build.version.sdk=" | head -1 | cut -d'=' -f2)
-            [ -n "$SDK_VERSION" ] && break
-        fi
-    done
-fi
-
-if [ -n "$SDK_VERSION" ]; then
-    log_info "Setting SDK version to: $SDK_VERSION"
-    /system/bin/resetprop ro.build.version.sdk "$SDK_VERSION"
-    /system/bin/resetprop ro.system.build.version.sdk "$SDK_VERSION"
-    /system/bin/resetprop ro.vendor.build.version.sdk "$SDK_VERSION"
+    log_info "Could not detect security patch level from system partition"
+    log_info "Using hardcoded values from init.recovery.qcom.rc"
 fi
 
 log_info "Auto patch level detection complete"
