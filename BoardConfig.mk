@@ -177,14 +177,4 @@ BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 
 # Vendor / security patch
 VENDOR_SECURITY_PATCH := 2021-08-01
-
-# -----------------------------------------------------------------------------
-# NOTE: Avoid hacks that set platform/vendor patch levels to a far future date.
-# Setting PLATFORM_SECURITY_PATCH := 2099-12-31 is dangerous and will alter
-# verified-boot expectations. If you used that to bypass anti-rollback, consider:
-#  - disabling AVB for recovery builds, or
-#  - using properly generated vbmeta with --prop from your build artifacts.
-# -----------------------------------------------------------------------------
-# PLATFORM_SECURITY_PATCH := 2099-12-31   # <-- commented out on purpose
-# VENDOR_SECURITY_PATCH := 2099-12-31     # <-- do not set to far-future values
-# PLATFORM_VERSION := 16.1.0
+PLATFORM_SECURITY_PATCH := 2021-02-05
