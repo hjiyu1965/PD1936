@@ -1,10 +1,8 @@
 on early-init
     mkdir /vendor/firmware_mnt
     symlink /vendor/firmware_mnt /firmware
-    mkdir /mnt/vendor
-    mkdir /mnt/vendor/persist
-    chown root system /mnt/vendor/persist
-    chmod 0771 /mnt/vendor/persist
+    mkdir /mnt/vendor 0775 root system
+    mkdir /mnt/vendor/persist 0771 system system
     symlink /mnt/vendor/persist /persist
 
 on init

@@ -39,6 +39,7 @@ on fs
 
     # Mount persist partition for TEE
     wait /dev/block/bootdevice/by-name/persist
+    mkdir /mnt/vendor/persist 0771 system system
     mount ext4 /dev/block/bootdevice/by-name/persist /mnt/vendor/persist noatime,nosuid,nodev
     chmod 0771 /mnt/vendor/persist
     chown system system /mnt/vendor/persist

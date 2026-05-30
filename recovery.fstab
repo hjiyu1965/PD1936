@@ -19,8 +19,8 @@
 # oem
 /oem                 ext4    /dev/block/bootdevice/by-name/oem                   flags=display="OEM";backup=1                                           ro,barrier=1,discard
 
-# vgc (vivo game center)
-/vgc                 ext4    /dev/block/bootdevice/by-name/vgc                   flags=display="VGC";backup=1                                           ro,barrier=1,discard
+# vgc (vivo game center - cannot be probed/mounted in recovery)
+/vgc                 emmc    /dev/block/bootdevice/by-name/vgc                   flags=display="VGC";backup=1;flashimg
 
 # modem firmware
 /vendor/firmware_mnt vfat    /dev/block/bootdevice/by-name/modem                 flags=display="Modem";backup=1;flashimg                                 ro,shortname=lower,uid=0,gid=1000,dmask=227,fmask=337,context=u:object_r:firmware_file:s0
@@ -28,14 +28,14 @@
 # dsp
 /vendor/dsp          ext4    /dev/block/bootdevice/by-name/dsp                   flags=display="DSP";backup=1                                           ro,nosuid,nodev,barrier=1
 
-# persist
-/mnt/vendor/persist  ext4    /dev/block/bootdevice/by-name/persist               flags=display="Persist";backup=1                                       noatime,nosuid,nodev,barrier=1
+# persist (mounted by init.recovery.qcom.rc for TEE)
+/mnt/vendor/persist  ext4    /dev/block/bootdevice/by-name/persist               flags=display="Persist";backup=1;nomanualmount                         noatime,nosuid,nodev,barrier=1
 
 # bluetooth firmware
 /vendor/bt_firmware  vfat    /dev/block/bootdevice/by-name/bluetooth             flags=display="Bluetooth";backup=1;flashimg                             ro,shortname=lower,uid=1002,gid=3002,dmask=227,fmask=337,context=u:object_r:bt_firmware_file:s0
 
 # misc (needed by update_engine to detect boot device)
-/misc                emmc    /dev/block/bootdevice/by-name/misc                  flags=display="Misc"
+/misc                emmc    /dev/block/bootdevice/by-name/misc                  flags=display="Misc";backup=1
 
 # boot
 /boot                emmc    /dev/block/bootdevice/by-name/boot                  flags=display="Boot";backup=1;flashimg

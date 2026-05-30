@@ -31,7 +31,6 @@ on init
 
 
 on boot
-    write /sys/class/android_usb/android0/iSerial ${ro.serialno}
     mount configfs none /config
     mkdir /config/usb_gadget/g1 0770
     mkdir /config/usb_gadget/g2 0770
@@ -87,7 +86,6 @@ on boot
     mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=1000,rmode=0770,fmode=0660
     mkdir /dev/usb-ffs/fastboot 0770 system system
     mount functionfs fastboot /dev/usb-ffs/fastboot uid=2000,gid=1000,rmode=0770,fmode=0660
-    write /sys/class/android_usb/android0/f_ffs/aliases adb,fastboot
     setprop vendor.usb.controller ${sys.usb.controller}
     setprop sys.usb.configfs 1
 
