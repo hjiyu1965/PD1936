@@ -44,7 +44,7 @@ export FOX_ALLOW_EARLY_SETTINGS_LOAD=1
 export OF_SKIP_DECRYPTED_ADOPTED_STORAGE=1
 
 # 12. 维护者信息（纯数字）
-export OF_MAINTAINER="YourName"
+export OF_MAINTAINER="hjiyu1965"
 # export FOX_MAINTAINER_PATCH_VERSION=1  # 先注释掉，避免错误
 
 echo "[OrangeFox] 应用卡屏修复配置"
