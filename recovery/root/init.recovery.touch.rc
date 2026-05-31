@@ -1,3 +1,8 @@
+on early-init
+    setprop ro.vivo.product.model PD1936      
+    setprop ro.product.model V1936AL          
+    setprop ro.product.board msmnile  
+
 on boot
 	chown system /proc/NVTSPI
 	chmod 0666 /proc/NVTSPI
