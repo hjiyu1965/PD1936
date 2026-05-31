@@ -108,3 +108,6 @@ TW_MAX_BRIGHTNESS := 255
 # 
 TW_USE_SERIALNO_PROPERTY_FOR_DEVICE_ID := true
 TW_INCLUDE_CRYPTO := true
+
+# Force FBE decryption prompt on boot
+OF_SKIP_FBE_DECRYPTION := false
