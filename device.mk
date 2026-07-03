@@ -19,7 +19,9 @@ PRODUCT_USE_QCOM_COMMON := true
 # Inherit from our custom product configuration
 PRODUCT_PACKAGES += \
     libion \
-    libfuse
+    libfuse \
+    qcom_decrypt \
+    qcom_decrypt_fbe
 
 # Vibrator
 PRODUCT_PACKAGES += \
