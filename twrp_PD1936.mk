@@ -11,7 +11,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit some common TWRP stuff.
 $(call inherit-product, vendor/twrp/config/common.mk)
-
+$(call inherit-product, device/qcom/twrp-common/Android.mk)
 # Inherit from PD1936 device
 $(call inherit-product, device/vivo/PD1936/device.mk)
 
