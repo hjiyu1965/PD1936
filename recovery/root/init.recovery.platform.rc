@@ -107,3 +107,9 @@ service vts_app_recovery /system/bin/vts_app_recovery  --update
   disabled
   seclabel u:r:vts_app:s0
   oneshot
+on early-boot
+    setprop recovery.service 1
+    start qseecomd
+    start cryptfshw-1-0
+on fs
+    exec_start wait_for_keymaster
