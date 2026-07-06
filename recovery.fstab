@@ -25,36 +25,35 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# Vendor variant of recovery.fstab. Modified for TWRP: removed first_stage_mount,
-# fixed mount points, added backup/flash/storage entries. No MicroSD slot on this device.
+# Vendor variant of recovery.fstab. Same as recovery.fstab, with additional vendor entry.
 
 #device         mount point      fstype        [device2] [length=]
 #<src>                                                 <mnt_point>            <type>  <mnt_flags and options>                            <fs_mgr_flags>
-/dev/block/bootdevice/by-name/system                    /                      ext4    ro,barrier=1,discard                                 wait,avb,backup=1,flashimg=1
-/dev/block/bootdevice/by-name/vendor                    /vendor                ext4    ro,barrier=1                                         wait,backup=1,flashimg=1
-/dev/block/by-name/metadata                             /metadata              ext4    noatime,nosuid,nodev,discard                         wait,check,formattable
-/dev/block/bootdevice/by-name/userdata                  /data                  f2fs    noatime,nosuid,nodev,discard,reserve_root=32768,resgid=1065,fsync_mode=nobarrier,inlinecrypt    latemount,wait,resize,check,formattable,fileencryption=ice,wrappedkey,reservedsize=128M,quota,checkpoint=fs
-/dev/block/bootdevice/by-name/cache                     /cache                 ext4    noatime,nosuid,nodev,barrier=1                       wait,backup=1,flashimg=1
-/dev/block/bootdevice/by-name/oem                       /oem                   ext4    ro,barrier=1,discard                                 wait,backup=1,flashimg=1
-/dev/block/bootdevice/by-name/modem                     /firmware              vfat    ro,shortname=lower,uid=0,gid=1000,dmask=227,fmask=337,context=u:object_r:firmware_file:s0 wait,backup=1,flashimg=1
-/dev/block/bootdevice/by-name/dsp                       /dsp                   ext4    ro,nosuid,nodev,barrier=1                            wait,backup=1,flashimg=1
-/dev/block/bootdevice/by-name/persist                   /persist               ext4    noatime,nosuid,nodev,barrier=1                       wait,check,backup=1,flashimg=1
-/dev/block/bootdevice/by-name/bluetooth                 /bt_firmware           vfat    ro,shortname=lower,uid=1002,gid=3002,dmask=227,fmask=337,context=u:object_r:bt_firmware_file:s0 wait,backup=1,flashimg=1
+/dev/block/bootdevice/by-name/system                    /                      ext4    ro,barrier=1,discard                                 wait,avb
+/dev/block/bootdevice/by-name/vendor                    /vendor                ext4    ro,barrier=1                                         wait
+/dev/block/by-name/metadata                             /metadata              ext4    noatime,nosuid,nodev,discard                         wait,check,formattable,first_stage_mount
+
+
+/dev/block/bootdevice/by-name/userdata  /data  f2fs  noatime,nosuid,nodev,discard,reserve_root=32768,resgid=1065,fsync_mode=nobarrier,inlinecrypt  latemount,wait,resize,check,formattable,fileencryption=ice,wrappedkey,reservedsize=128M,quota,checkpoint=fs
+
+/dev/block/bootdevice/by-name/cache                     /cache                 ext4    noatime,nosuid,nodev,barrier=1                       wait
+/dev/block/bootdevice/by-name/oem                       /oem                   ext4    ro,barrier=1,discard                                 wait,first_stage_mount
+/devices/platform/soc/8804000.sdhci/mmc_host*           /storage/sdcard1       vfat    nosuid,nodev                                         wait,voldmanaged=sdcard1:auto
+/devices/platform/soc/1da4000.ufshc_card/host*          /storage/sdcard1       vfat    nosuid,nodev                                         wait,voldmanaged=sdcard1:auto
+/dev/block/bootdevice/by-name/modem                     /vendor/firmware_mnt   vfat    ro,shortname=lower,uid=0,gid=1000,dmask=227,fmask=337,context=u:object_r:firmware_file:s0 wait
+/dev/block/bootdevice/by-name/dsp                       /vendor/dsp            ext4    ro,nosuid,nodev,barrier=1                            wait
+/dev/block/bootdevice/by-name/persist                   persist/mnt/vendor/persist    ext4    noatime,nosuid,nodev,barrier=1                       wait,check
+/dev/block/bootdevice/by-name/bluetooth                 /vendor/bt_firmware    vfat    ro,shortname=lower,uid=1002,gid=3002,dmask=227,fmask=337,context=u:object_r:bt_firmware_file:s0 wait
 # Need to have this entry in here even though the mount point itself is no longer needed.
 # The update_engine code looks for this entry in order to determine the boot device address
 # and fails if it does not find it.
 /dev/block/bootdevice/by-name/misc                      /misc                  emmc    defaults                                             defaults
-/dev/block/bootdevice/by-name/boot                      /boot                  emmc    defaults                                             defaults,backup=1,flashimg=1
-/dev/block/bootdevice/by-name/recovery                  /recovery              emmc    defaults                                             defaults,backup=1,flashimg=1
-/dev/block/bootdevice/by-name/vbmeta                    /vbmeta                emmc    defaults                                             defaults,backup=1,flashimg=1
-/dev/block/bootdevice/by-name/dtbo                      /dtbo                  emmc    defaults                                             defaults,backup=1,flashimg=1
+/dev/block/bootdevice/by-name/boot                      /boot                  emmc    defaults                                             defaults
+/dev/block/bootdevice/by-name/recovery                  /recovery              emmc    defaults                                             defaults
+/dev/block/bootdevice/by-name/vbmeta                    /vbmeta                emmc    defaults                                             defaults
+/dev/block/bootdevice/by-name/dtbo                      /dtbo                  emmc    defaults                                             defaults
+/devices/platform/soc/*.ssusb/*.dwc3/xhci-hcd.*.auto*   /storage/usbotg        vfat    nosuid,nodev    wait,voldmanaged=usbotg:auto
 
-# Image partitions for backup/flash (non-dynamic partition device)
-/system_image               emmc    /dev/block/bootdevice/by-name/system        flags=backup=1;flashimg=1
-/vendor_image               emmc    /dev/block/bootdevice/by-name/vendor        flags=backup=1;flashimg=1
-
-# Internal storage backup (bind mount)
-/storage                    ext4    /data/media/0                               flags=display="内部存储";UserMRF;backup=1;fsflags="bind";可拆卸
-
-# USB OTG (ueventd dynamic detection)
-/devices/platform/soc/*.ssusb/*.dwc3/xhci-hcd.*.auto*   /usb_otg               vfat    nosuid,nodev                                         wait,voldmanaged=usb_otg:auto
+# TWRP 额外条目
+/usb-otg  vfat  /devices/platform/soc/*.ssusb/*.dwc3  auto  defaults
+/sdcard   vfat  /dev/block/mmcblk1p1  auto  defaults
