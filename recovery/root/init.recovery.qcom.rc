@@ -24,7 +24,6 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-import /init.recovery.qcom_decrypt.rc
 on init
     write /sys/class/backlight/panel0-backlight/brightness 200
     setprop sys.usb.configfs 1
@@ -37,24 +36,3 @@ on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
 
-    # Mount persist partition for TEE
-    wait /dev/block/bootdevice/by-name/persist
-    mkdir /mnt/vendor/persist 0771 system system
-    mount ext4 /dev/block/bootdevice/by-name/persist /mnt/vendor/persist noatime,nosuid,nodev
-    chmod 0771 /mnt/vendor/persist
-    chown system system /mnt/vendor/persist
-
-on post-fs
-    # Set TEE device permissions for QSEE
-    chmod 0666 /dev/qseecom
-    chmod 0666 /dev/ion
-    chmod 0660 /dev/rpmb0
-
-    # Set security patch level for FBE decryption
-    # These values must match the system's original values
-    setprop ro.build.version.security_patch 2021-07-01
-    setprop ro.vendor.build.security_patch 2021-07-01
-    setprop ro.system.build.version.security_patch 2021-07-01
-
-    # Auto-detect and set security patch level before keymaster starts
-    exec u:r:recovery:s0 root root -- /system/bin/auto_patchlevel.sh
